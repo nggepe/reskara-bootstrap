@@ -7,22 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reskara Bootsrap</title>
   <link rel="stylesheet" href="assets/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
   <nav class="side-nav">
+    <div class="logo"><img src="assets/img/logos/Vector.png" alt="logo"></div>
+    <hr>
     <ul>
       <li><a href="index.html">Dashboard</a></li>
       <li>
-        <a href="javascript:">Components</a>
-        <ul>
-          <li><a href="#">Buttons</a></li>
-        </ul>
+        <a href="javascript:" data-bs-toggle="collapse" class="has-child" data-bs-target="#home-collapse"
+          aria-expanded="true">Components</a>
+        <div class="collapse" id="home-collapse">
+          <ul>
+            <li><a href="#">Buttons</a></li>
+          </ul>
+        </div>
       </li>
     </ul>
   </nav>
   <script src="assets/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/init.js"></script>
 </body>
 
 </html>
