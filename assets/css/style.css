@@ -1,0 +1,42 @@
+:root {
+  --background-primary: #fbfeff;
+  --border-primary: #eaeaea;
+  --text-primary: #767783;
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url(../fonts/Poppins-Regular.ttf);
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Poppins !important;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+nav.side-nav {
+  width: 240px;
+  background-color: var(--background-primary);
+  border-right: 1px solid var(--border-primary);
+}
+
+nav.side-nav ul {
+  list-style: none;
+  padding-left: 15px;
+  padding-bottom: 0.5rem;
+}
+
+nav.side-nav ul>li {
+  padding-top: 0.5rem;
+}
+
+nav.side-nav a {
+  text-decoration: none;
+  color: var(--text-primary);
+}
