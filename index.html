@@ -7,24 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reskara Bootsrap</title>
   <link rel="stylesheet" href="assets/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/">
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
   <nav class="side-nav">
-    <div class="logo"><img src="assets/img/logos/Vector.png" alt="logo"></div>
+    <div class="logo">
+      <img src="assets/img/logos/Vector.png" alt="logo">
+      <button class="btn btn-default ml-auto"><i class="fa fa-align-justify"></i><i
+          class="fa fa-align-right"></i></button>
+    </div>
     <hr>
     <ul>
-      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="index.html"><i class="fa fa-tachometer-alt me-3 text-blue"></i>Dashboard</a></li>
       <li>
-        <a href="javascript:" data-bs-toggle="collapse" class="has-child" data-bs-target="#home-collapse"
-          aria-expanded="true">Components</a>
-        <div class="collapse" id="home-collapse">
-          <ul>
-            <li><a href="#">Buttons</a></li>
-          </ul>
-        </div>
+        <a href="javascript:" class="has-child"><i class="fa fa-dharmachakra me-3 text-orange"></i>Components</a>
+        <ul>
+          <li><a href="#">Buttons</a></li>
+        </ul>
       </li>
     </ul>
   </nav>

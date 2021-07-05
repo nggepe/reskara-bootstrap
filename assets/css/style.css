@@ -1,8 +1,13 @@
 :root {
   --background-primary: #fbfeff;
-  --background-secondary: #c8dbff;
+  --background-secondary: #e8f2ff;
+  --background-body: #f2f2f2;
+  --background-tertiary: #f6faff;
   --border-primary: #eaeaea;
+  --border-accent: #333;
   --text-primary: #767783;
+  --text-blue: rgb(69, 143, 255);
+  --text-orange: rgb(255, 153, 0);
 }
 
 @font-face {
@@ -27,7 +32,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-primary);
-  background-color: var(--background-primary);
+  background-color: var(--background-body);
   min-height: 100%;
 }
 
@@ -35,15 +40,21 @@ nav.side-nav {
   width: 240px;
   background-color: var(--background-primary);
   border-right: 1px solid var(--border-primary);
-  padding-top: 30px;
+  padding-top: 15px;
   font-size: 0.9rem;
   height: 100%;
   position: absolute;
+  box-shadow: 1px 1px 20px var(--border-primary);
 }
 
 nav.side-nav .logo {
-  text-align: center;
+  text-align: left;
   margin-bottom: 50px;
+  padding: 0px 15px 0px 15px;
+  display: flex;
+  justify-content: space-between;
+  justify-items: start;
+  align-items: flex-end;
 }
 
 nav.side-nav .logo>img {
@@ -52,19 +63,23 @@ nav.side-nav .logo>img {
 
 nav.side-nav ul {
   list-style: none;
-  padding-left: 0px;
-  padding-bottom: 0.5rem;
+  padding: 0;
 }
 
-nav.side-nav ul>li a:hover {
+nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
-  transition: .5s;
+  transition: 0.5s;
 }
 
-nav.side-nav ul>li a:hover::before {
-  content: "";
-  border: 2px solid #333;
-  width: 3px;
+nav.side-nav ul>li a.active+ul {
+  background-color: var(--background-tertiary);
+}
+
+nav.side-nav ul>li a:hover::before, nav.side-nav ul>li a.active::before {
+  content: '';
+  background: url(active-menu.svg) no-repeat center;
+  object-fit: cover;
+  width: 10px;
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
   position: absolute;
@@ -72,10 +87,22 @@ nav.side-nav ul>li a:hover::before {
   margin-left: -15px;
   margin-top: -8px;
   height: 36px;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-nav .has-child::after {
+nav.side-nav .has-child+ul {
+  display: none;
+  height: 0;
+  transition: height .2s ease-out;
+}
+
+nav.side-nav .has-child.active+ul {
+  display: block;
+  height: auto;
+  transition: height .2s ease-in;
+}
+
+nav.side-nav .has-child::after {
   content: ">";
   font-size: 14px;
   font-weight: 900;
@@ -95,4 +122,12 @@ nav.side-nav a {
   display: block;
   padding-left: 1rem;
   padding: 8px 15px;
+}
+
+.text-blue {
+  color: var(--text-blue);
+}
+
+.text-orange {
+  color: var(--text-orange);
 }
