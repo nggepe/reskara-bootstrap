@@ -25,6 +25,7 @@ hr {
   margin-bottom: .5rem;
   height: 1px;
   border: 1px solid var(--border-primary);
+  overflow: hidden;
 }
 
 body {
@@ -54,11 +55,16 @@ nav.side-nav .logo {
   display: flex;
   justify-content: space-between;
   justify-items: start;
-  align-items: flex-end;
+  align-items: center;
 }
 
-nav.side-nav .logo>img {
-  height: 30px;
+nav.side-nav .logo>a img {
+  max-height: 25px;
+  max-width: 150px;
+}
+
+nav.side-nav .logo>a {
+  padding: 0;
 }
 
 nav.side-nav ul {
@@ -122,6 +128,10 @@ nav.side-nav a {
   display: block;
   padding-left: 1rem;
   padding: 8px 15px;
+}
+
+nav.side-nav>ul ul {
+  padding-left: 15px;
 }
 
 .text-blue {

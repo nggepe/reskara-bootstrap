@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reskara Bootsrap</title>
+  <link rel="icon" href="assets/img/logos/logo-square.png" type="image/icon type">
   <link rel="stylesheet" href="assets/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -14,20 +15,23 @@
 <body>
   <nav class="side-nav">
     <div class="logo">
-      <img src="assets/img/logos/Vector.png" alt="logo">
-      <button class="btn btn-default ml-auto"><i class="fa fa-align-justify"></i><i
+      <a href="index.html"><img src="assets/img/logos/logo-landscape.png" alt="logo"></a>
+      <button class="btn btn-default ml-auto py-0 px-0 minify-sidenav"><i class="fa fa-align-justify"></i><i
           class="fa fa-align-right"></i></button>
     </div>
     <hr>
     <ul>
-      <li><a href="index.html"><i class="fa fa-tachometer-alt me-3 text-blue"></i>Dashboard</a></li>
+      <li><a href="index.html"><i class="fa fa-tachometer-alt me-3 text-blue"></i><span>Dashboard</span></a></li>
       <li>
-        <a href="javascript:" class="has-child"><i class="fa fa-dharmachakra me-3 text-orange"></i>Components</a>
+        <a href="javascript:" class="has-child"><i
+            class="fa fa-dharmachakra me-3 text-orange"></i><span>Components</span></a>
         <ul>
           <li><a href="#">Buttons</a></li>
         </ul>
       </li>
     </ul>
+  </nav>
+  <nav class="appbar">
   </nav>
   <script src="assets/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/init.js"></script>
