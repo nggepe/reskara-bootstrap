@@ -1,0 +1,24 @@
+:root {
+  --background-primary: #fbfeff;
+  --background-secondary: #e8f2ff;
+  --background-body: #f2f2f2;
+  --background-tertiary: #f6faff;
+  --border-primary: #eaeaea;
+  --border-accent: #333;
+  --text-primary: #767783;
+  --text-blue: rgb(69, 143, 255);
+  --text-orange: rgb(255, 153, 0);
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url(../../fonts/Poppins-Regular.ttf);
+}
+
+.text-blue {
+  color: var(--text-blue);
+}
+
+.text-orange {
+  color: var(--text-orange);
+}
