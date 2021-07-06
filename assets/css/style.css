@@ -46,6 +46,7 @@ nav.side-nav {
   height: 100%;
   position: absolute;
   box-shadow: 1px 1px 20px var(--border-primary);
+  transition: .5s;
 }
 
 nav.side-nav .logo {
@@ -56,11 +57,14 @@ nav.side-nav .logo {
   justify-content: space-between;
   justify-items: start;
   align-items: center;
+  transition: .5s;
 }
 
 nav.side-nav .logo>a img {
   max-height: 25px;
   max-width: 150px;
+  transform: scale(1);
+  transition: .5s;
 }
 
 nav.side-nav .logo>a {
@@ -132,6 +136,23 @@ nav.side-nav a {
 
 nav.side-nav>ul ul {
   padding-left: 15px;
+}
+
+nav.side-nav.mini {
+  width: 60px;
+  transition: .5s;
+}
+
+nav.side-nav.mini .logo>a img {
+  max-height: 0;
+  max-width: 0;
+  transform: scale(0);
+  transition: .5s;
+}
+
+nav.side-nav.mini .logo {
+  padding: 0px 20px 0px 0px;
+  transition: .5s;
 }
 
 .text-blue {
