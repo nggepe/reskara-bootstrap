@@ -3,5 +3,7 @@
   justify-content: space-between;
   justify-items: center;
   background: var(--background-primary);
-  height: 59px;
+  height: 58px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
