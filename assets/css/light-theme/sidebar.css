@@ -105,23 +105,12 @@ nav.side-nav ul a span {
   display: inline-block;
 }
 
-nav.side-nav.mini ul a {
-  text-align: center;
-}
-
-nav.side-nav.mini ul>li>a span {
-  display: none;
-}
-
-nav.side-nav.mini .has-child::after {
-  content: "";
-}
-
 /* MINI BAR */
 
 nav.side-nav.mini {
   width: 60px;
   transition: .5s;
+  overflow: visible;
 }
 
 nav.side-nav.mini .logo>a img {
@@ -134,4 +123,32 @@ nav.side-nav.mini .logo>a img {
 nav.side-nav.mini .logo {
   padding: 0px 20px 0px 0px;
   transition: .5s;
+}
+
+nav.side-nav.mini>ul>li>a {
+  text-align: center;
+}
+
+nav.side-nav.mini ul>li>a span {
+  display: none;
+}
+
+nav.side-nav.mini .has-child::after {
+  content: "";
+}
+
+nav.side-nav.mini li:hover ul {
+  display: block;
+  position: absolute;
+  margin-left: 60px;
+  height: fit-content;
+  /* z-index: 22; */
+  width: 200px;
+  background: #fff;
+  color: #222;
+  margin-top: -30px;
+}
+
+nav.side-nav.mini li .has-child:hover+ul>li>a>span {
+  display: inline-block;
 }
