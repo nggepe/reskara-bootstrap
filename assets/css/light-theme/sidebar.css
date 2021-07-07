@@ -95,10 +95,6 @@ nav.side-nav a {
   padding: 8px 15px;
 }
 
-nav.side-nav>ul ul {
-  padding-left: 15px;
-}
-
 nav.side-nav ul a span {
   margin-left: 1rem;
   transition: .5s;
@@ -137,18 +133,41 @@ nav.side-nav.mini .has-child::after {
   content: "";
 }
 
-nav.side-nav.mini li:hover ul {
+nav.side-nav.mini>ul>li:hover>a>span {
+  display: block;
+  z-index: inherit;
+  background: var(--background-primary);
+  position: absolute;
+  margin-left: 45px;
+  margin-top: -30px;
+  height: 40px;
+  padding-top: 10px;
+  font-weight: 900;
+  width: 200px;
+}
+
+nav.side-nav.mini>ul>li:hover>ul {
   display: block;
   position: absolute;
   margin-left: 60px;
-  height: fit-content;
-  /* z-index: 22; */
   width: 200px;
-  background: #fff;
-  color: #222;
-  margin-top: -30px;
+  background: var(--background-primary);
+  color: var(--text-primary);
 }
 
-nav.side-nav.mini li .has-child:hover+ul>li>a>span {
+nav.side-nav.mini>ul>li:hover>ul a {
+  display: block;
+  background: var(--background-primary);
+  color: var(--text-primary);
+}
+
+nav.side-nav.mini>ul>li:hover span {
   display: inline-block;
+}
+
+/* mobile sidebar */
+
+nav.side-nav.hide {
+  transform: scale(0);
+  transition: .2s;
 }
