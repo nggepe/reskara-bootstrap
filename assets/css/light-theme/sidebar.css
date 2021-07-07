@@ -6,7 +6,6 @@ nav.side-nav {
   font-size: 0.9rem;
   height: 100%;
   position: absolute;
-  box-shadow: 1px 1px 20px var(--border-primary);
   transition: .5s;
 }
 
