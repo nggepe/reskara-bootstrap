@@ -1,4 +1,4 @@
-.appbar {
+nav.appbar {
   display: flex;
   justify-content: space-between;
   justify-items: center;
@@ -6,4 +6,20 @@
   height: 58px;
   padding-right: 15px;
   padding-left: 15px;
+  transition: .5s;
+  border-bottom: var(--border-primary);
+}
+
+nav.appbar>.appbar-items {
+  justify-items: center;
+}
+
+nav.appbar>.appbar-items a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  text-decoration: none;
+  color: var(--text-primary);
 }
