@@ -1,2 +1,5 @@
 # reskara-bootstrap
-a web admin template
+a free web admin template
+
+# Status
+in dev
