@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   sideBarButtonMobile.forEach(function (e) {
     e.addEventListener("click", function (e) {
-      e.preventDefault()
       if (sidebarState === "show") sidebarEvents("hide", '')
       else sidebarEvents("show", '')
     })
@@ -68,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (state === "show") {
       sideNavItems.forEach(function (e1) {
         e1.classList.remove("hide")
-        reskaraDebounce(200, function () {
+        reskaraDebounce(100, function () {
           e1.setAttribute("style", "display: block")
           if (windowState === "dekstop")
             setAppbarMargin("240px")
