@@ -1,8 +1,9 @@
 const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav"), sideBarButtonMobile = document.querySelectorAll(".sidebar-btn-mobile")
 var sidebarState
 var windowState
-const mediaQuery = window.matchMedia('(max-width: 768px)'), desktopQuery = window.matchMedia('(min-width: 769px)')
-const appBar = document.querySelectorAll(".appbar")
+const mobileQuery = window.matchMedia('(max-width: 768px)')
+const appBar = document.querySelectorAll("nav.appbar")
+const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 document.addEventListener('DOMContentLoaded', function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
@@ -31,17 +32,15 @@ document.addEventListener('DOMContentLoaded', function () {
     sideNavMinifyButton(e)
   })
 
-  mediaQuery.addEventListener('change', function (e) {
+  mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
       sidebarEvents("hide", "show")
       windowState = "mobile"
-    }
-  })
-
-  desktopQuery.addEventListener('change', function (e) {
-    if (e.matches) {
+      appBarState("hide")
+    } else {
       sidebarEvents("show", "hide")
       windowState = "dekstop"
+      appBarState("show")
     }
   })
 
@@ -119,11 +118,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
-
   function setAppbarMargin(margin = "0px") {
     appBar.forEach(function (e) {
       e.setAttribute("style", "margin-left: " + margin)
+    })
+  }
+
+  function appBarState(state = "show") {
+    const el = document.createElement("button"), elIn = document.createElement("i")
+    el.setAttribute("class", "appbar-menu-mobile")
+    elIn.classList.add("fa"), elIn.classList.add("fa-align-justify")
+    el.appendChild(elIn)
+    appBarMenu.forEach(function (e) {
+      if (state === "show") {
+        const clasEL = e.parentElement.querySelectorAll(".appbar-menu-mobile")
+        clasEL.forEach(function (e) {
+          e.remove()
+        })
+      }
+      else {
+        e.classList.add("mobile")
+        e.parentElement.appendChild(el)
+      }
+    })
+
+    el.addEventListener("click", function (e) {
+      e.preventDefault()
     })
   }
 

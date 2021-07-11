@@ -39,9 +39,13 @@ nav.side-nav ul {
   padding: 0;
 }
 
+nav.side-nav ul>li a:hover {
+  transform: scale(1.01);
+}
+
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 nav.side-nav ul>li a.active+ul {

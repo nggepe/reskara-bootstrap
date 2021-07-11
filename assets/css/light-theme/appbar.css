@@ -4,8 +4,8 @@ nav.appbar {
   justify-items: center;
   background: var(--background-primary);
   height: 58px;
-  padding-right: 15px;
   padding-left: 15px;
+  padding-right: 1rem;
   transition: .5s;
   border-bottom: var(--border-primary);
 }
@@ -55,4 +55,37 @@ nav.appbar .sidebar-btn-mobile {
 
 nav.appbar form {
   margin-left: 1rem;
+}
+
+nav.appbar ul.appbar-menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+nav.appbar ul.appbar-menu li>a, nav.appbar ul.appbar-menu li {
+  height: 100%;
+}
+
+nav.appbar ul.appbar-menu li>a {
+  padding: 0 1rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+nav.appbar ul.appbar-menu li>a:hover {
+  background-color: var(--background-secondary);
+}
+
+nav.appbar ul.appbar-menu li>a>.caption {
+  display: none;
+}
+
+nav.appbar ul.appbar-menu.mobile {
+  display: none;
 }
