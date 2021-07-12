@@ -8,16 +8,33 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
     windowState = "desktop"
+    appBarState("show")
   } else {
     sidebarEvents("hide", "show")
     windowState = "mobile"
+    appBarState("hide")
   }
+
+  mobileQuery.addEventListener('change', function (e) {
+    if (e.matches) {
+      sidebarEvents("hide", "show")
+      windowState = "mobile"
+      appBarState("hide")
+    } else {
+      sidebarEvents("show", "hide")
+      windowState = "dekstop"
+      appBarState("show")
+    }
+  })
 
   window.addEventListener("click", function (e) {
     sideNavItems.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
       }
+    })
+    appBarMenu.forEach(function (e2) {
+      if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
   sideNavItems.forEach(function (e) {
@@ -32,17 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sideNavMinifyButton(e)
   })
 
-  mobileQuery.addEventListener('change', function (e) {
-    if (e.matches) {
-      sidebarEvents("hide", "show")
-      windowState = "mobile"
-      appBarState("hide")
-    } else {
-      sidebarEvents("show", "hide")
-      windowState = "dekstop"
-      appBarState("show")
-    }
-  })
+
 
   sideBarButtonMobile.forEach(function (e) {
     e.addEventListener("click", function (e) {
@@ -90,15 +97,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function sideNavMinifyButton(sideNavItem) {
     sideNavMinify.forEach(function (e) {
       e.addEventListener("click", function (e1) {
-        e1.preventDefault()
-
         if (sideNavItem.classList.contains("mini")) {
           sideNavItem.classList.remove("mini")
           changeButtonMinifyContent("", e)
         }
         else {
-          changeButtonMinifyContent("mini", e)
-          sideNavItem.classList.add("mini")
+          if (windowState === "mobile") sidebarEvents("hide", "show")
+          else {
+            changeButtonMinifyContent("mini", e)
+            sideNavItem.classList.add("mini")
+          }
         }
 
       })
@@ -129,21 +137,35 @@ document.addEventListener('DOMContentLoaded', function () {
     el.setAttribute("class", "appbar-menu-mobile")
     elIn.classList.add("fa"), elIn.classList.add("fa-align-justify")
     el.appendChild(elIn)
+    el.addEventListener("click", function (e) {
+      e.preventDefault()
+      console.log(e.pageY)
+      console.log(e.screenY)
+      appBarMenuState("mobile", "", true)
+    })
+    appBarMenuState(state, el)
+  }
+
+  function appBarMenuState(state = "show", button, collapse = false) {
     appBarMenu.forEach(function (e) {
       if (state === "show") {
         const clasEL = e.parentElement.querySelectorAll(".appbar-menu-mobile")
         clasEL.forEach(function (e) {
           e.remove()
         })
+        if (e.classList.contains("mobile")) {
+          e.classList.remove("mobile")
+        }
       }
-      else {
+      else if (state === "hide") {
         e.classList.add("mobile")
-        e.parentElement.appendChild(el)
+        e.parentElement.appendChild(button)
       }
-    })
-
-    el.addEventListener("click", function (e) {
-      e.preventDefault()
+      else if (state === "mobile" && collapse) {
+        if (e.classList.contains("show")) e.classList.remove("show")
+        else if (!e.classList.contains("show") && e.classList.contains("mobile")) e.classList.add("show")
+      }
+      else if (state === "mobile" && !collapse) if (e.classList.contains("show")) e.classList.remove("show")
     })
   }
 

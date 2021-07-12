@@ -43,6 +43,7 @@ nav.appbar .appbar-search:focus {
   border: none;
   outline: none;
   width: 250px;
+  max-width: calc(99vw - 100px);
   transition: .5s;
   background-color: var(--background-secondary);
 }
@@ -65,6 +66,7 @@ nav.appbar ul.appbar-menu {
   margin: 0;
   padding: 0;
   height: 100%;
+  position: relative;
 }
 
 nav.appbar ul.appbar-menu li>a, nav.appbar ul.appbar-menu li {
@@ -76,16 +78,42 @@ nav.appbar ul.appbar-menu li>a {
   color: var(--text-primary);
   display: flex;
   align-items: center;
+  text-decoration: none;
+}
+
+nav.appbar ul.appbar-menu li>a>i {
+  width: 1.4rem;
+  text-align: center;
 }
 
 nav.appbar ul.appbar-menu li>a:hover {
   background-color: var(--background-secondary);
 }
 
-nav.appbar ul.appbar-menu li>a>.caption {
+nav.appbar ul.appbar-menu li>a>.caption, nav.appbar ul.appbar-menu.mobile {
   display: none;
 }
 
-nav.appbar ul.appbar-menu.mobile {
-  display: none;
+nav.appbar ul.appbar-menu.mobile.show .caption, nav.appbar ul.appbar-menu.mobile.show {
+  display: block;
+}
+
+nav.appbar ul.appbar-menu.mobile.show .caption {
+  margin-left: 1rem;
+}
+
+nav.appbar ul.appbar-menu.mobile.show li>a, nav.appbar ul.appbar-menu.mobile.show li {
+  height: 45px;
+}
+
+nav.appbar ul.appbar-menu.mobile.show {
+  position: absolute;
+  width: 100%;
+  max-width: 250px;
+  z-index: 999;
+  right: 0;
+  top: 60px;
+  height: 500px;
+  max-height: 80%;
+  background-color: var(--background-primary);
 }
