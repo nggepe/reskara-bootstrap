@@ -2,7 +2,7 @@ nav.side-nav {
   width: 240px;
   background-color: var(--background-primary);
   border-right: 1px solid var(--border-primary);
-  /* padding-top: 15px; */
+  z-index: 999;
   font-size: 0.9rem;
   height: 100%;
   position: absolute;
@@ -39,9 +39,13 @@ nav.side-nav ul {
   padding: 0;
 }
 
+nav.side-nav ul>li a:hover {
+  transform: scale(1.01);
+}
+
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 nav.side-nav ul>li a.active+ul {
@@ -127,12 +131,12 @@ nav.side-nav.mini>ul>li>a {
   text-align: center;
 }
 
-nav.side-nav.mini ul>li>a span {
+nav.side-nav.mini ul>li>a span, nav.side-nav.mini .has-child::after, nav.side-nav.mini>ul>li>a.active+ul {
   display: none;
 }
 
-nav.side-nav.mini .has-child::after {
-  content: "";
+nav.side-nav.mini>ul>li:hover>a.active+ul {
+  display: block;
 }
 
 nav.side-nav.mini>ul>li:hover>a>span {
@@ -140,7 +144,7 @@ nav.side-nav.mini>ul>li:hover>a>span {
   z-index: inherit;
   background: var(--background-primary);
   position: absolute;
-  margin-left: 45px;
+  margin-left: 43px;
   margin-top: -30px;
   height: 40px;
   padding-top: 10px;
@@ -151,7 +155,7 @@ nav.side-nav.mini>ul>li:hover>a>span {
 nav.side-nav.mini>ul>li:hover>ul {
   display: block;
   position: absolute;
-  margin-left: 60px;
+  margin-left: 58px;
   width: 200px;
   background: var(--background-primary);
   color: var(--text-primary);

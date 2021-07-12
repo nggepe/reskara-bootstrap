@@ -22,3 +22,7 @@
 .text-orange {
   color: var(--text-orange);
 }
+
+.bg-primary {
+  background-color: var(--background-primary);
+}
