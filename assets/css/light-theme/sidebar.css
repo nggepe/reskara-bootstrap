@@ -8,6 +8,8 @@ nav.side-nav {
   position: absolute;
   transform: scale(1);
   transition: .5s;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 nav.side-nav .logo {
@@ -40,7 +42,7 @@ nav.side-nav ul {
 }
 
 nav.side-nav ul>li a:hover span {
-  padding-left: 1rem;
+  padding-left: 0.1rem;
 }
 
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
@@ -99,7 +101,7 @@ nav.side-nav ul a span {
 nav.side-nav.mini {
   width: 60px;
   transition: .5s;
-  overflow: visible;
+  overflow-x: visible;
 }
 
 nav.side-nav.mini .logo>a img {
@@ -128,7 +130,7 @@ nav.side-nav.mini>ul>li:hover>a.active+ul {
 
 nav.side-nav.mini>ul>li:hover>a>span {
   display: block;
-  z-index: inherit;
+  z-index: 999;
   background: var(--background-secondary);
   position: absolute;
   margin-left: 43px;
@@ -149,7 +151,11 @@ nav.side-nav.mini>ul>li>ul .has-child span::after {
   transition: .2s;
 }
 
-nav.side-nav.mini>ul>li>ul .has-child.active, nav.side-nav.mini>ul>li>ul>a:hover {
+nav.side-nav.mini>ul>li>ul .has-child.active span::after {
+  transform: rotate(90deg);
+}
+
+nav.side-nav.mini>ul>li>ul .has-child.active, nav.side-nav.mini>ul>li>ul a:hover {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   background-color: var(--background-secondary);

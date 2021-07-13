@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function appBarState(state = "show") {
     const el = document.createElement("button"), elIn = document.createElement("i")
     el.setAttribute("class", "appbar-menu-mobile")
-    elIn.classList.add("fa"), elIn.classList.add("fa-align-justify")
+    elIn.classList.add("fas"), elIn.classList.add("fa-ellipsis-v")
     el.appendChild(elIn)
     el.addEventListener("click", function (e) {
       e.preventDefault()
