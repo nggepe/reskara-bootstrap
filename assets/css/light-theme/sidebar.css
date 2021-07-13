@@ -4,10 +4,13 @@ nav.side-nav {
   border-right: 1px solid var(--border-primary);
   z-index: 999;
   font-size: 0.9rem;
-  height: 100%;
+  height: fit-content;
+  min-height: 100%;
   position: absolute;
   transform: scale(1);
   transition: .5s;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 nav.side-nav .logo {
@@ -39,32 +42,19 @@ nav.side-nav ul {
   padding: 0;
 }
 
-nav.side-nav ul>li a:hover {
-  transform: scale(1.01);
+nav.side-nav ul>li a:hover span {
+  padding-left: 0.1rem;
 }
 
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   transition: 0.4s;
 }
 
 nav.side-nav ul>li a.active+ul {
   background-color: var(--background-tertiary);
-}
-
-nav.side-nav ul>li a:hover::before, nav.side-nav ul>li a.active::before {
-  content: '';
-  background: url(active-menu.svg) no-repeat center;
-  object-fit: cover;
-  width: 10px;
-  border-top-left-radius: 1px;
-  border-top-right-radius: 1px;
-  position: absolute;
-  height: 100%;
-  margin-left: -15px;
-  margin-top: -8px;
-  height: 36px;
-  transition: 0.5s;
 }
 
 nav.side-nav .has-child+ul {
@@ -111,8 +101,11 @@ nav.side-nav ul a span {
 
 nav.side-nav.mini {
   width: 60px;
+  position: absolute;
   transition: .5s;
-  overflow: visible;
+  overflow-x: visible;
+  overflow-y: unset;
+  height: fit-content;
 }
 
 nav.side-nav.mini .logo>a img {
@@ -141,8 +134,8 @@ nav.side-nav.mini>ul>li:hover>a.active+ul {
 
 nav.side-nav.mini>ul>li:hover>a>span {
   display: block;
-  z-index: inherit;
-  background: var(--background-primary);
+  z-index: 999;
+  background: var(--background-secondary);
   position: absolute;
   margin-left: 43px;
   margin-top: -30px;
@@ -150,6 +143,26 @@ nav.side-nav.mini>ul>li:hover>a>span {
   padding-top: 10px;
   font-weight: 900;
   width: 200px;
+  border-radius: 0 !important;
+}
+
+nav.side-nav.mini>ul>li>ul .has-child span::after {
+  content: ">";
+  font-size: 14px;
+  font-weight: 900;
+  position: absolute;
+  right: 20px;
+  transition: .2s;
+}
+
+nav.side-nav.mini>ul>li>ul .has-child.active span::after {
+  transform: rotate(90deg);
+}
+
+nav.side-nav.mini>ul>li>ul .has-child.active, nav.side-nav.mini>ul>li>ul a:hover {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--background-secondary);
 }
 
 nav.side-nav.mini>ul>li:hover>ul {
