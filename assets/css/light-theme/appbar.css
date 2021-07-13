@@ -94,8 +94,12 @@ nav.appbar ul.appbar-menu li>a>.caption, nav.appbar ul.appbar-menu.mobile {
   display: none;
 }
 
-nav.appbar ul.appbar-menu.mobile.show .caption, nav.appbar ul.appbar-menu.mobile.show {
+nav.appbar ul.appbar-menu.mobile.show .caption, nav.appbar ul.appbar-menu.mobile.show, nav.appbar ul.appbar-menu li>a>.caption.visible {
   display: block;
+}
+
+nav.appbar ul.appbar-menu li>a>.caption.visible {
+  margin-left: 1rem;
 }
 
 nav.appbar ul.appbar-menu.mobile.show .caption {
@@ -107,13 +111,41 @@ nav.appbar ul.appbar-menu.mobile.show li>a, nav.appbar ul.appbar-menu.mobile.sho
 }
 
 nav.appbar ul.appbar-menu.mobile.show {
-  position: absolute;
+  position: fixed;
   width: 100%;
   max-width: 250px;
   z-index: 999;
   right: 0;
   top: 60px;
   height: 500px;
-  max-height: 80%;
+  max-height: 80vh;
   background-color: var(--background-primary);
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+nav.appbar button.appbar-menu-mobile {
+  color: var(--text-secondary);
+}
+
+@media only screen and (max-width: 768px) {
+  nav.appbar .appbar-search {
+    padding: 5px 15px 5px 35px;
+    border-radius: 20px;
+    font-size: 14px;
+    width: 100px;
+    border: none;
+    outline: none;
+    background-color: var(--background-tertiary);
+    transition: .5s;
+    position: relative;
+  }
+  nav.appbar .appbar-search:focus {
+    border: none;
+    outline: none;
+    width: 250px;
+    max-width: calc(99vw - 100px);
+    transition: .5s;
+    background-color: var(--background-secondary);
+  }
 }

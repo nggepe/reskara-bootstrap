@@ -139,8 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     el.appendChild(elIn)
     el.addEventListener("click", function (e) {
       e.preventDefault()
-      console.log(e.pageY)
-      console.log(e.screenY)
       appBarMenuState("mobile", "", true)
     })
     appBarMenuState(state, el)
