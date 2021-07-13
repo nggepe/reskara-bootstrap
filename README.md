@@ -8,3 +8,8 @@ in dev
 
 1. Mobile: 280px - 768px
 2. Desktop: > 769px
+
+# Theme Target
+
+1. Light
+2. Dark
