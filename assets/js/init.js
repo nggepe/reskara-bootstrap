@@ -2,8 +2,22 @@ const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = 
 var sidebarState
 var windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
-const appBar = document.querySelectorAll("nav.appbar")
-const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
+const appBar = document.querySelectorAll("nav.appbar"), appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
+const container = document.querySelectorAll(".r-container"), footer = document.querySelectorAll("footer.r-footer")
+// window.addEventListener("resize", function (e) {
+//   e.preventDefault()
+//   console.log(this.window.innerHeight)
+//   sideBarFlexWindow(this.window.innerHeight)
+// })
+
+// sideBarFlexWindow(window.innerHeight)
+// function sideBarFlexWindow(height = 0) {
+//   sideNavItems.forEach(function (e) {
+//     if (height > e.clientHeight) e.setAttribute("style", "height: " + height + "px")
+//   })
+// }
+
+
 document.addEventListener('DOMContentLoaded', function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
@@ -49,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
     sideNavMinifyButton(e)
   })
 
-
-
   sideBarButtonMobile.forEach(function (e) {
     e.addEventListener("click", function (e) {
       if (sidebarState === "show") sidebarEvents("hide", '')
@@ -65,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e1.classList.add("hide")
         reskaraDebounce(200, function () {
           e1.setAttribute("style", "display: none")
-          setAppbarMargin(0)
+          setMarginFromSideBar(0)
         })
       })
       sidebarState = "hide"
@@ -76,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         reskaraDebounce(100, function () {
           e1.setAttribute("style", "display: block")
           if (windowState === "dekstop")
-            setAppbarMargin("240px")
+            setMarginFromSideBar("240px")
         })
       })
       sidebarState = "show"
@@ -118,16 +130,24 @@ document.addEventListener('DOMContentLoaded', function () {
   function changeButtonMinifyContent(state, e) {
     if (state === "mini") {
       e.innerHTML = `<i class="fa fa-align-justify"></i>`
-      setAppbarMargin("60px")
+      setMarginFromSideBar("60px")
     }
     else {
       e.innerHTML = `<i class="fa fa-align-right"></i>`
-      setAppbarMargin("240px")
+      setMarginFromSideBar("240px")
     }
   }
 
-  function setAppbarMargin(margin = "0px") {
+  function setMarginFromSideBar(margin = "0px") {
     appBar.forEach(function (e) {
+      e.setAttribute("style", "margin-left: " + margin)
+    })
+
+    container.forEach(function (e) {
+      e.setAttribute("style", "margin-left: " + margin)
+    })
+
+    footer.forEach(function (e) {
       e.setAttribute("style", "margin-left: " + margin)
     })
   }

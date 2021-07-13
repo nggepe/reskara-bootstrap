@@ -9,11 +9,33 @@
   --text-secondary: #989ab1;
   --text-blue: rgb(69, 143, 255);
   --text-orange: rgb(255, 153, 0);
+  --scroll-background: rgb(207, 236, 255);
+  --scroll-thumb: rgb(176, 206, 226);
 }
 
 @font-face {
   font-family: Poppins;
   src: url(../../fonts/Poppins-Regular.ttf);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scroll-background);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-color: var(--scroll-thumb);
+  max-height: 50px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track-piece {
+  width: 20px;
 }
 
 .text-blue {

@@ -4,11 +4,12 @@ nav.side-nav {
   border-right: 1px solid var(--border-primary);
   z-index: 999;
   font-size: 0.9rem;
-  height: 100%;
+  height: fit-content;
+  min-height: 100%;
   position: absolute;
   transform: scale(1);
   transition: .5s;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -100,8 +101,11 @@ nav.side-nav ul a span {
 
 nav.side-nav.mini {
   width: 60px;
+  position: absolute;
   transition: .5s;
   overflow-x: visible;
+  overflow-y: unset;
+  height: fit-content;
 }
 
 nav.side-nav.mini .logo>a img {
