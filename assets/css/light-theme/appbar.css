@@ -3,11 +3,11 @@ nav.appbar {
   justify-content: space-between;
   justify-items: center;
   background: var(--background-primary);
-  height: 58px;
+  height: 59px;
   padding-left: 15px;
   padding-right: 1rem;
   transition: .5s;
-  border-bottom: var(--border-primary);
+  border-bottom: 1px solid var(--border-primary);
 }
 
 nav.appbar>.appbar-items {

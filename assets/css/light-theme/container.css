@@ -1,4 +1,4 @@
 .r-container {
   position: relative;
-  min-height: calc(99vh - 70px);
+  min-height: calc(99vh - 59px - 56px);
 }
