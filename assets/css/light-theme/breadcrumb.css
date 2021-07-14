@@ -4,7 +4,6 @@ nav.breadcrumb {
   justify-items: center;
   padding: 10px 1rem;
   justify-content: space-between;
-  box-shadow: 3px 2px 3px var(--border-primary);
 }
 
 nav.breadcrumb ol {

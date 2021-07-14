@@ -1,7 +1,7 @@
 :root {
   --background-primary: #fbfeff;
   --background-secondary: #e8f2ff;
-  --background-body: #f2f2f2;
+  --background-body: #f4f5fb;
   --background-tertiary: #f6faff;
   --border-primary: #eaeaea;
   --border-accent: #333;
@@ -11,6 +11,7 @@
   --text-orange: rgb(255, 153, 0);
   --scroll-background: rgb(207, 236, 255);
   --scroll-thumb: rgb(176, 206, 226);
+  --shadow-primary: #8a8a8a40;
 }
 
 @font-face {

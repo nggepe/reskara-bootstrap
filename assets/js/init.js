@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   window.addEventListener("click", function (e) {
+    e.preventDefault()
     sideNavItems.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   sideBarButtonMobile.forEach(function (e) {
     e.addEventListener("click", function (e) {
+      e.preventDefault()
       if (sidebarState === "show") sidebarEvents("hide", '')
       else sidebarEvents("show", '')
     })
@@ -89,7 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       sidebarState = "show"
     }
-    sidebarBtnMobileCollapse(btn)
+    if (btn !== "")
+      sidebarBtnMobileCollapse(btn)
   }
 
   function sidebarBtnMobileCollapse(state) {
@@ -151,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function appBarState(state = "show") {
     const el = document.createElement("button"), elIn = document.createElement("i")
     el.setAttribute("class", "appbar-menu-mobile")
+    el.setAttribute("style", "height: 100%;")
     elIn.classList.add("fas"), elIn.classList.add("fa-ellipsis-v")
     el.appendChild(elIn)
     el.addEventListener("click", function (e) {
