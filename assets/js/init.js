@@ -4,18 +4,13 @@ var windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
 const appBar = document.querySelectorAll("nav.appbar"), appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const container = document.querySelectorAll(".r-container"), footer = document.querySelectorAll("footer.r-footer")
-// window.addEventListener("resize", function (e) {
-//   e.preventDefault()
-//   console.log(this.window.innerHeight)
-//   sideBarFlexWindow(this.window.innerHeight)
-// })
+const body = document.querySelector("body")
 
-// sideBarFlexWindow(window.innerHeight)
-// function sideBarFlexWindow(height = 0) {
-//   sideNavItems.forEach(function (e) {
-//     if (height > e.clientHeight) e.setAttribute("style", "height: " + height + "px")
-//   })
-// }
+body.addEventListener("resize", function (ev) {
+  sideNavItems.forEach(function (e) {
+    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
+  })
+})
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -53,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
   sideNavItems.forEach(function (e) {
     const items = e.querySelectorAll("a.has-child")
+    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
     items.forEach(function (e2) {
       e2.addEventListener("click", function (e3) {
         e3.preventDefault()
