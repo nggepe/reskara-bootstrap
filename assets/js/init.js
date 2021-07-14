@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   window.addEventListener("click", function (e) {
-    e.preventDefault()
+    // e.preventDefault()
     sideNavItems.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
