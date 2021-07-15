@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
           <li><a href="#"><span>Breadcrumb</span></a></li>
           <li><a href="#"><span>Buttons</span></a></li>
           <li><a href="#"><span>Button Group</span></a></li>
-          <li><a href="#"><span>Card</span></a></li>
+          <li><a href="pages/cards.html"><span>Card</span></a></li>
           <li><a href="#"><span>Carousel</span></a></li>
           <li><a href="#"><span>Close Button</span></a></li>
           <li><a href="#"><span>Collapse</span></a></li>
@@ -70,21 +71,7 @@
       </ul>
     </div>
   </nav>
-  <div class="r-container">
-    <nav class="breadcrumb primary-y-shadow" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-      </ol>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-      </ol>
-    </nav>
-    <div class="container-xxl">
-    </div>
+  <div class="r-container" id="content">
   </div>
   <footer class="r-footer a-bold">
     <div class="container-xxl d-flex justify-content-between align-middle">
@@ -94,6 +81,38 @@
   </footer>
   <script src="assets/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/init.js"></script>
+  <script>
+    const base_url = window.location.protocol + window.location.port + "//" + window.location.hostname + window.location.pathname
+    const content = document.getElementById("content")
+
+    if (window.location.hash !== "") request(window.location.hash.substr(1))
+
+    document.querySelectorAll("a").forEach(function (e) {
+      e.addEventListener("click", function (e2) {
+        e2.preventDefault()
+        const href = e.getAttribute("href")
+          , host = href.replace(/(http:\/\/|https:\/\/)/g, "").split("/")[0]
+          , isHosted = href.includes("http://") || href.includes("https://")
+          , target = e.getAttribute("target")
+        if (href === "" || href == "index.html") content.innerHTML = ""
+        else if (href === "#") window.scrollTo({ top: 0 })
+        else if (href === "javascript:") { }
+        else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
+        else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
+        else request(href)
+
+      })
+    })
+    function request(href) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", href);
+      xmlHttp.send(null);
+      xmlHttp.onreadystatechange = function (st) {
+        content.innerHTML = xmlHttp.responseText
+        window.location.hash = href
+      }
+    }
+  </script>
 </body>
 
 </html>

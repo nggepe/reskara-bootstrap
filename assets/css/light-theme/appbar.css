@@ -75,7 +75,7 @@ nav.appbar ul.appbar-menu li>a, nav.appbar ul.appbar-menu li {
 
 nav.appbar ul.appbar-menu li>a {
   padding: 0 1rem;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   text-decoration: none;

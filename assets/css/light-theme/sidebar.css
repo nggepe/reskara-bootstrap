@@ -109,7 +109,7 @@ nav .has-child.active::after {
 
 nav.side-nav a {
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   display: block;
   padding-left: 1rem;
   padding: 8px 15px;
