@@ -12,7 +12,18 @@ body.addEventListener("resize", function (ev) {
   })
 })
 
+class RB { }
 
+RB.load = function (url, success = function () { }) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", url);
+  xmlHttp.send(null);
+  xmlHttp.onreadystatechange = function (st) {
+    content.innerHTML = xmlHttp.responseText
+    if (typeof success !== "undefined")
+      success()
+  }
+}
 document.addEventListener('DOMContentLoaded', function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
