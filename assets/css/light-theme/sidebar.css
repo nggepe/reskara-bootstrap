@@ -4,13 +4,37 @@ nav.side-nav {
   border-right: 1px solid var(--border-primary);
   z-index: 999;
   font-size: 0.9rem;
-  height: fit-content;
-  min-height: 100%;
-  position: absolute;
+  height: 100%;
+  min-height: unset;
+  position: fixed;
   transform: scale(1);
   transition: .5s;
-  overflow-y: hidden;
   overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+nav.side-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+nav.side-nav::-webkit-scrollbar-track {
+  background-color: var(--scroll-background);
+  cursor: pointer;
+}
+
+nav.side-nav::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-color: var(--scroll-thumb);
+  max-height: 50px;
+  cursor: pointer;
+}
+
+nav.side-nav::-webkit-scrollbar-track-piece {
+  width: 20px;
+}
+
+nav.side-nav:hover {
+  overflow-y: auto;
 }
 
 nav.side-nav .logo {
@@ -85,7 +109,7 @@ nav .has-child.active::after {
 
 nav.side-nav a {
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   display: block;
   padding-left: 1rem;
   padding: 8px 15px;
@@ -106,6 +130,7 @@ nav.side-nav.mini {
   overflow-x: visible;
   overflow-y: unset;
   height: fit-content;
+  min-height: 100%;
 }
 
 nav.side-nav.mini .logo>a img {
@@ -144,6 +169,13 @@ nav.side-nav.mini>ul>li:hover>a>span {
   font-weight: 900;
   width: 200px;
   border-radius: 0 !important;
+}
+
+nav.side-nav.mini>ul>li:hover>a+ul {
+  max-height: 400px;
+  height: fit-content;
+  overflow-y: scroll;
+  display: block;
 }
 
 nav.side-nav.mini>ul>li>ul .has-child span::after {

@@ -75,7 +75,7 @@ nav.appbar ul.appbar-menu li>a, nav.appbar ul.appbar-menu li {
 
 nav.appbar ul.appbar-menu li>a {
   padding: 0 1rem;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -120,8 +120,8 @@ nav.appbar ul.appbar-menu.mobile.show {
   height: 500px;
   max-height: 80vh;
   background-color: var(--background-primary);
-  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -webkit-animation: slide-in-right 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-right 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 nav.appbar button.appbar-menu-mobile {
