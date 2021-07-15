@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   window.addEventListener("click", function (e) {
-    // e.preventDefault()
     sideNavItems.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
@@ -48,13 +47,23 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   })
   sideNavItems.forEach(function (e) {
-    const items = e.querySelectorAll("a.has-child")
+    const items = e.querySelectorAll("a.has-child"), a = e.querySelectorAll("a")
     if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
     items.forEach(function (e2) {
       e2.addEventListener("click", function (e3) {
         e3.preventDefault()
         if (e2.classList.contains("active")) e2.classList.remove("active")
         else e2.classList.add("active")
+      })
+    })
+    a.forEach(function (e2) {
+      e2.addEventListener("click", function (event) {
+        if (!e2.classList.contains("has-child")) {
+          e2.classList.add("active")
+          a.forEach(function (e3) {
+            if (e3 !== e2 && !e3.classList.contains("has-child") && e3.classList.contains("active")) e3.classList.remove("active")
+          })
+        }
       })
     })
     sideNavMinifyButton(e)

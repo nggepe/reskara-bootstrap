@@ -93,7 +93,7 @@
           , host = href.replace(/(http:\/\/|https:\/\/)/g, "").split("/")[0]
           , isHosted = href.includes("http://") || href.includes("https://")
           , target = e.getAttribute("target")
-        if (href === "" || href == "index.html") content.innerHTML = ""
+        if (href === "" || href == "index.html") content.innerHTML = "", window.location.hash = ""
         else if (href === "#") window.scrollTo({ top: 0 })
         else if (href === "javascript:") { }
         else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
