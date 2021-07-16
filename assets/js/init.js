@@ -6,7 +6,8 @@ const body = document.querySelector("body")
 
 class RB {
   constructor(e) {
-    this.el = document.querySelectorAll(e);
+    if (e instanceof HTMLElement) this.el = [e]
+    else this.el = document.querySelectorAll(e);
   }
 
   all(cb = function (e) { }) { this.el.forEach(function (e) { cb(e) }) }
@@ -23,10 +24,12 @@ class RB {
     this.el.forEach(function (e) { e.addEventListener(ev, cb) })
   }
 
-  hasClass(className, cb) {
+  hasClass(className) {
+    var state = false
     this.el.forEach(function (e) {
-      cb(e.classList.contains(className, e))
+      state = e.classList.contains(className)
     })
+    return state
   }
   load(url, success = function () { }) {
     const xmlHttp = new XMLHttpRequest(), element = this.el
@@ -48,6 +51,13 @@ class RB {
         e.getAttribute(getter)
       else e.setAttribute(getter, setter)
     })
+  }
+
+  addClass(className) {
+    this.el.forEach(function (e) { if (!e.classList.contains(className)) e.classList.add(className) })
+  }
+  removeClass(className) {
+    this.el.forEach(function (e) { if (e.classList.contains(className)) e.classList.remove(className) })
   }
 
   find(elem, cb) {
@@ -104,28 +114,19 @@ RB.ready(function () {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
-  sideNavItems2.all(function (e) {
-    rb(e).find("a", function (a) {
-      ///nyampe sini JANGAN DIGANGGU
-      rb(a).click(function (e) {
-        if (!e2.classList.contains("has-child")) {
-          e2.classList.add("active")
-          a.forEach(function (e3) {
-            if (e3 !== e2 && !e3.classList.contains("has-child") && e3.classList.contains("active")) e3.classList.remove("active")
-          })
-        }
-        else {
-          if (e2.classList.contains("active")) e2.classList.remove("active")
-          else e2.classList.add("active")
-        }
-      })
-    })
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-    a.forEach(function (e2) {
-      e2.addEventListener("click", function (event) {
 
+  sideNavItems2.find("a", function (a) {
+    rb(a).click(function () {
+
+      if (rb(a).hasClass("has-child") && rb(a).hasClass("active")) rb(a).removeClass("active")
+      else rb(a).addClass("active")
+      sideNavItems2.find("a", function (a1) {
+        if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
       })
     })
+  })
+  sideNavItems2.all(function (e) {
+    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
     sideNavMinifyButton(e)
   })
   rb(".sidebar-btn-mobile").click(function (e) {
