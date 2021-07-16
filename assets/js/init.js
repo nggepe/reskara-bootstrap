@@ -1,15 +1,8 @@
 const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav")
 var sidebarState, windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
-const appBar = document.querySelectorAll("nav.appbar"), appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
-const container = document.querySelectorAll(".r-container"), footer = document.querySelectorAll("footer.r-footer")
+const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const body = document.querySelector("body")
-
-body.addEventListener("resize", function (ev) {
-  sideNavItems.forEach(function (e) {
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-  })
-})
 
 class RB {
   constructor(e) {
@@ -56,6 +49,14 @@ class RB {
       else e.setAttribute(getter, setter)
     })
   }
+
+  find(elem, cb) {
+    this.el.forEach(function (e) {
+      e.querySelectorAll(elem).forEach(function (e1) {
+        cb(e1)
+      })
+    })
+  }
   static delay(time = 0, callback = function () { }) {
     var interval = setInterval(function () {
       callback()
@@ -65,9 +66,8 @@ class RB {
 
   static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
 }
-const rb = function (elem) {
-  return new RB(elem)
-}
+
+const rb = function (elem) { return new RB(elem) }
 RB.ready(function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
@@ -78,6 +78,8 @@ RB.ready(function () {
     windowState = "mobile"
     appBarState("hide")
   }
+
+  const sideNavItems2 = rb('nav.side-nav')
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -92,33 +94,36 @@ RB.ready(function () {
   })
 
   window.addEventListener("click", function (e) {
-    sideNavItems.forEach(function (e2) {
+    sideNavItems2.all(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
       }
     })
+
     appBarMenu.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
-  sideNavItems.forEach(function (e) {
-    const items = e.querySelectorAll("a.has-child"), a = e.querySelectorAll("a")
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-    items.forEach(function (e2) {
-      e2.addEventListener("click", function (e3) {
-        e3.preventDefault()
-        if (e2.classList.contains("active")) e2.classList.remove("active")
-        else e2.classList.add("active")
-      })
-    })
-    a.forEach(function (e2) {
-      e2.addEventListener("click", function (event) {
+  sideNavItems2.all(function (e) {
+    rb(e).find("a", function (a) {
+      ///nyampe sini JANGAN DIGANGGU
+      rb(a).click(function (e) {
         if (!e2.classList.contains("has-child")) {
           e2.classList.add("active")
           a.forEach(function (e3) {
             if (e3 !== e2 && !e3.classList.contains("has-child") && e3.classList.contains("active")) e3.classList.remove("active")
           })
         }
+        else {
+          if (e2.classList.contains("active")) e2.classList.remove("active")
+          else e2.classList.add("active")
+        }
+      })
+    })
+    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
+    a.forEach(function (e2) {
+      e2.addEventListener("click", function (event) {
+
       })
     })
     sideNavMinifyButton(e)
@@ -194,17 +199,7 @@ RB.ready(function () {
   }
 
   function setMarginFromSideBar(margin = "0px") {
-    appBar.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
-
-    container.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
-
-    footer.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
+    rb("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
   }
 
   function appBarState(state = "show") {
