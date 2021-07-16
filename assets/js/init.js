@@ -1,6 +1,5 @@
-const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav"), sideBarButtonMobile = document.querySelectorAll(".sidebar-btn-mobile")
-var sidebarState
-var windowState
+const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav")
+var sidebarState, windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
 const appBar = document.querySelectorAll("nav.appbar"), appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const container = document.querySelectorAll(".r-container"), footer = document.querySelectorAll("footer.r-footer")
@@ -12,19 +11,64 @@ body.addEventListener("resize", function (ev) {
   })
 })
 
-class RB { }
-
-RB.load = function (url, success = function () { }) {
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", url);
-  xmlHttp.send(null);
-  xmlHttp.onreadystatechange = function (st) {
-    content.innerHTML = xmlHttp.responseText
-    if (typeof success !== "undefined")
-      success()
+class RB {
+  constructor(e) {
+    this.el = document.querySelectorAll(e);
   }
+
+  all(cb = function (e) { }) { this.el.forEach(function (e) { cb(e) }) }
+
+  click(cb = function (event) { }) {
+    this.el.forEach(function (e) {
+      e.addEventListener("click", function (ev) {
+        cb(ev)
+      })
+    })
+  }
+
+  listen(ev, cb) {
+    this.el.forEach(function (e) { e.addEventListener(ev, cb) })
+  }
+
+  hasClass(className, cb) {
+    this.el.forEach(function (e) {
+      cb(e.classList.contains(className, e))
+    })
+  }
+  load(url, success = function () { }) {
+    const xmlHttp = new XMLHttpRequest(), element = this.el
+
+    xmlHttp.open("GET", url);
+    xmlHttp.send(null);
+    xmlHttp.onreadystatechange = function (st) {
+      element.forEach(function (e) {
+        e.innerHTML = xmlHttp.responseText
+      })
+      if (typeof success !== "undefined")
+        success()
+    }
+  }
+
+  attr(getter, setter = null) {
+    this.el.forEach(function (e) {
+      if (setter === null || typeof setter === "undefined")
+        e.getAttribute(getter)
+      else e.setAttribute(getter, setter)
+    })
+  }
+  static delay(time = 0, callback = function () { }) {
+    var interval = setInterval(function () {
+      callback()
+      clearInterval(interval)
+    }, time)
+  }
+
+  static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
 }
-document.addEventListener('DOMContentLoaded', function () {
+const rb = function (elem) {
+  return new RB(elem)
+}
+RB.ready(function () {
   if (window.innerWidth > 768) {
     sidebarEvents("show", "hide")
     windowState = "desktop"
@@ -79,13 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     sideNavMinifyButton(e)
   })
-
-  sideBarButtonMobile.forEach(function (e) {
-    e.addEventListener("click", function (e) {
-      e.preventDefault()
-      if (sidebarState === "show") sidebarEvents("hide", '')
-      else sidebarEvents("show", '')
-    })
+  rb(".sidebar-btn-mobile").click(function (e) {
+    if (sidebarState === "show") sidebarEvents("hide", '')
+    else sidebarEvents("show", '')
   })
 
   function sidebarEvents(state, btn) {
@@ -93,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sideNavItems.forEach(function (e1) {
         e1.classList.remove("mini")
         e1.classList.add("hide")
-        reskaraDebounce(200, function () {
+        RB.delay(200, function () {
           e1.setAttribute("style", "display: none")
           setMarginFromSideBar(0)
         })
@@ -103,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (state === "show") {
       sideNavItems.forEach(function (e1) {
         e1.classList.remove("hide")
-        reskaraDebounce(100, function () {
+        RB.delay(100, function () {
           e1.setAttribute("style", "display: block")
           if (windowState === "dekstop")
             setMarginFromSideBar("240px")
@@ -116,13 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function sidebarBtnMobileCollapse(state) {
-    sideBarButtonMobile.forEach(function (e) {
-      reskaraDebounce(200, function () {
-        if (state === "hide") e.setAttribute("style", "display: none")
-        if (state === "show") e.setAttribute("style", "display: flex")
-      })
-
-    })
+    if (state === "hide") rb(".sidebar-btn-mobile").attr("style", "display: none;")
+    else if (state === "show") rb(".sidebar-btn-mobile").attr("style", "display: flex;")
   }
 
   function sideNavMinifyButton(sideNavItem) {
@@ -137,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
           else {
             changeButtonMinifyContent("mini", e)
             sideNavItem.classList.add("mini")
+            sideNavItem.setAttribute("style", "min-height: " + body.clientHeight + "px")
           }
         }
 
@@ -205,12 +241,5 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       else if (state === "mobile" && !collapse) if (e.classList.contains("show")) e.classList.remove("show")
     })
-  }
-
-  function reskaraDebounce(time = 0, callback = function () { }) {
-    var interval = setInterval(function () {
-      callback()
-      clearInterval(interval)
-    }, time)
   }
 })
