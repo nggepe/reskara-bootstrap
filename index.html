@@ -84,7 +84,7 @@
     const base_url = window.location.protocol + window.location.port + "//" + window.location.hostname + window.location.pathname
     const content = document.getElementById("content")
 
-    if (window.location.hash !== "") request(window.location.hash.substr(1))
+    if (window.location.hash !== "") rb("#content").load(window.location.hash.substr(2))
 
     document.querySelectorAll("a").forEach(function (e) {
       e.addEventListener("click", function (e2) {
@@ -93,12 +93,14 @@
           , host = href.replace(/(http:\/\/|https:\/\/)/g, "").split("/")[0]
           , isHosted = href.includes("http://") || href.includes("https://")
           , target = e.getAttribute("target")
-        if (href === "" || href == "index.html") content.innerHTML = ""
+        if (href === "" || href == "index.html") content.innerHTML = "", window.location.hash = ""
         else if (href === "#") window.scrollTo({ top: 0 })
         else if (href === "javascript:") { }
         else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
         else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
-        else request(href)
+        else rb("#content").load(href, function () {
+          window.location.hash = "/" + href
+        })
 
       })
     })
@@ -108,7 +110,7 @@
       xmlHttp.send(null);
       xmlHttp.onreadystatechange = function (st) {
         content.innerHTML = xmlHttp.responseText
-        window.location.hash = href
+        window.location.hash = "/" + href
       }
     }
   </script>

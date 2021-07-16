@@ -1,28 +1,89 @@
-const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav"), sideBarButtonMobile = document.querySelectorAll(".sidebar-btn-mobile")
-var sidebarState
-var windowState
+const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav")
+var sidebarState, windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
-const appBar = document.querySelectorAll("nav.appbar"), appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
-const container = document.querySelectorAll(".r-container"), footer = document.querySelectorAll("footer.r-footer")
+const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const body = document.querySelector("body")
 
-body.addEventListener("resize", function (ev) {
-  sideNavItems.forEach(function (e) {
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-  })
-})
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.innerWidth > 768) {
-    sidebarEvents("show", "hide")
-    windowState = "desktop"
-    appBarState("show")
-  } else {
-    sidebarEvents("hide", "show")
-    windowState = "mobile"
-    appBarState("hide")
+class RB {
+  constructor(e) {
+    if (e instanceof HTMLElement) this.el = [e]
+    else this.el = document.querySelectorAll(e);
   }
+
+  all(cb = function (e) { }) { this.el.forEach(function (e) { cb(e) }) }
+
+  click(cb = function (event) { }) {
+    this.el.forEach(function (e) {
+      e.addEventListener("click", function (ev) {
+        cb(ev)
+      })
+    })
+  }
+
+  listen(ev, cb) {
+    this.el.forEach(function (e) { e.addEventListener(ev, cb) })
+  }
+
+  hasClass(className) {
+    var state = false
+    this.el.forEach(function (e) {
+      state = e.classList.contains(className)
+    })
+    return state
+  }
+  load(url, success = function () { }) {
+    const xmlHttp = new XMLHttpRequest(), element = this.el
+
+    xmlHttp.open("GET", url);
+    xmlHttp.send(null);
+    xmlHttp.onreadystatechange = function (st) {
+      element.forEach(function (e) {
+        e.innerHTML = xmlHttp.responseText
+      })
+      if (typeof success !== "undefined")
+        success()
+    }
+  }
+
+  attr(getter, setter = null) {
+    this.el.forEach(function (e) {
+      if (setter === null || typeof setter === "undefined")
+        e.getAttribute(getter)
+      else e.setAttribute(getter, setter)
+    })
+  }
+
+  addClass(className) {
+    this.el.forEach(function (e) { if (!e.classList.contains(className)) e.classList.add(className) })
+  }
+  removeClass(className) {
+    this.el.forEach(function (e) { if (e.classList.contains(className)) e.classList.remove(className) })
+  }
+
+  find(elem, cb) {
+    this.el.forEach(function (e) {
+      e.querySelectorAll(elem).forEach(function (e1) {
+        cb(e1)
+      })
+    })
+  }
+  static delay(time = 0, callback = function () { }) {
+    var interval = setInterval(function () {
+      callback()
+      clearInterval(interval)
+    }, time)
+  }
+
+  static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
+}
+
+const rb = function (elem) { return new RB(elem) }
+RB.ready(function () {
+  if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
+  else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
+
+
+  const sideNavItems2 = rb('nav.side-nav')
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -37,35 +98,34 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   window.addEventListener("click", function (e) {
-    // e.preventDefault()
-    sideNavItems.forEach(function (e2) {
+    sideNavItems2.all(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
         sidebarEvents("hide", '')
       }
     })
+
     appBarMenu.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
-  sideNavItems.forEach(function (e) {
-    const items = e.querySelectorAll("a.has-child")
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-    items.forEach(function (e2) {
-      e2.addEventListener("click", function (e3) {
-        e3.preventDefault()
-        if (e2.classList.contains("active")) e2.classList.remove("active")
-        else e2.classList.add("active")
+
+  sideNavItems2.find("a", function (a) {
+    rb(a).click(function () {
+
+      if (rb(a).hasClass("has-child") && rb(a).hasClass("active")) rb(a).removeClass("active")
+      else rb(a).addClass("active")
+      sideNavItems2.find("a", function (a1) {
+        if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
       })
     })
+  })
+  sideNavItems2.all(function (e) {
+    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
     sideNavMinifyButton(e)
   })
-
-  sideBarButtonMobile.forEach(function (e) {
-    e.addEventListener("click", function (e) {
-      e.preventDefault()
-      if (sidebarState === "show") sidebarEvents("hide", '')
-      else sidebarEvents("show", '')
-    })
+  rb(".sidebar-btn-mobile").click(function (e) {
+    if (sidebarState === "show") sidebarEvents("hide", '')
+    else sidebarEvents("show", '')
   })
 
   function sidebarEvents(state, btn) {
@@ -73,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sideNavItems.forEach(function (e1) {
         e1.classList.remove("mini")
         e1.classList.add("hide")
-        reskaraDebounce(200, function () {
+        RB.delay(200, function () {
           e1.setAttribute("style", "display: none")
           setMarginFromSideBar(0)
         })
@@ -83,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (state === "show") {
       sideNavItems.forEach(function (e1) {
         e1.classList.remove("hide")
-        reskaraDebounce(100, function () {
+        RB.delay(100, function () {
           e1.setAttribute("style", "display: block")
           if (windowState === "dekstop")
             setMarginFromSideBar("240px")
@@ -96,13 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function sidebarBtnMobileCollapse(state) {
-    sideBarButtonMobile.forEach(function (e) {
-      reskaraDebounce(200, function () {
-        if (state === "hide") e.setAttribute("style", "display: none")
-        if (state === "show") e.setAttribute("style", "display: flex")
-      })
-
-    })
+    if (state === "hide") rb(".sidebar-btn-mobile").attr("style", "display: none;")
+    else if (state === "show") rb(".sidebar-btn-mobile").attr("style", "display: flex;")
   }
 
   function sideNavMinifyButton(sideNavItem) {
@@ -117,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
           else {
             changeButtonMinifyContent("mini", e)
             sideNavItem.classList.add("mini")
+            sideNavItem.setAttribute("style", "min-height: " + body.clientHeight + "px")
           }
         }
 
@@ -138,17 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function setMarginFromSideBar(margin = "0px") {
-    appBar.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
-
-    container.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
-
-    footer.forEach(function (e) {
-      e.setAttribute("style", "margin-left: " + margin)
-    })
+    rb("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
   }
 
   function appBarState(state = "show") {
@@ -185,12 +231,5 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       else if (state === "mobile" && !collapse) if (e.classList.contains("show")) e.classList.remove("show")
     })
-  }
-
-  function reskaraDebounce(time = 0, callback = function () { }) {
-    var interval = setInterval(function () {
-      callback()
-      clearInterval(interval)
-    }, time)
   }
 })
