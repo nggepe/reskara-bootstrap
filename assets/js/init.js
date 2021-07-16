@@ -79,15 +79,9 @@ class RB {
 
 const rb = function (elem) { return new RB(elem) }
 RB.ready(function () {
-  if (window.innerWidth > 768) {
-    sidebarEvents("show", "hide")
-    windowState = "desktop"
-    appBarState("show")
-  } else {
-    sidebarEvents("hide", "show")
-    windowState = "mobile"
-    appBarState("hide")
-  }
+  if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
+  else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
+
 
   const sideNavItems2 = rb('nav.side-nav')
 
