@@ -19,6 +19,7 @@ body {
   background-color: var(--background-body);
   min-height: 100%;
   overflow-x: hidden;
+  z-index: -1;
 }
 
 button {
