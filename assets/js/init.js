@@ -94,6 +94,12 @@ class RB {
     return state
   }
 
+  html(el) {
+    this.el.forEach(function (e) {
+      e.innerHTML = el
+    })
+  }
+
   static delay(time = 0, callback = function () { }) {
     var interval = setInterval(function () { callback(), clearInterval(interval) }, time)
   }
@@ -102,10 +108,12 @@ class RB {
 }
 
 const rb = function (elem) { return new RB(elem) }
-const sideNav = rb('nav.side-nav')
+const sideNav = rb('nav.side-nav'), sideNavMinifyBtn = rb('.minify-sidenav'), sidebarBtnMobile = rb(".sidebar-btn-mobile")
 RB.ready(function () {
   if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
   else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
+  if (sideNav.hasClass("mini")) changeButtonMinifyContent("mini")
+  else changeButtonMinifyContent("")
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -120,7 +128,7 @@ RB.ready(function () {
   })
 
   window.addEventListener("click", function (e) {
-    if (!sideNav.hasChild(e.target) && sidebarState === "show") sidebarEvents("hide", "")
+    if (!sideNav.hasChild(e.target) && sidebarState === "show" && windowState === "mobile") sidebarEvents("hide", "")
 
     appBarMenu.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
@@ -138,11 +146,8 @@ RB.ready(function () {
     })
   })
 
-  sideNav.all(function (e) {
-    if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
-    sideNavMinifyButton(e)
-  })
-  rb(".sidebar-btn-mobile").click(function (e) {
+  sideNav.all(function (e) { if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px") })
+  sidebarBtnMobile.click(function (e) {
     if (sidebarState === "show") sidebarEvents("hide", '')
     else sidebarEvents("show", '')
   })
@@ -167,42 +172,28 @@ RB.ready(function () {
   }
 
   function sidebarBtnMobileCollapse(state) {
-    if (state === "hide") rb(".sidebar-btn-mobile").attr("style", "display: none;")
-    else if (state === "show") rb(".sidebar-btn-mobile").attr("style", "display: flex;")
+    if (state === "hide") sidebarBtnMobile.attr("style", "display: none;")
+    else if (state === "show") sidebarBtnMobile.attr("style", "display: flex;")
   }
-
-  function sideNavMinifyButton(sideNavItem) {
-    console.log(windowState)
-    sideNavMinify.forEach(function (e) {
-      e.addEventListener("click", function (e1) {
-        if (sideNavItem.classList.contains("mini")) {
-          sideNavItem.classList.remove("mini")
-          changeButtonMinifyContent("", e)
-        }
-        else {
-          if (windowState === "mobile") sidebarEvents("hide", "show")
-          else {
-            changeButtonMinifyContent("mini", e)
-            sideNavItem.classList.add("mini")
-            sideNavItem.setAttribute("style", "min-height: " + body.clientHeight + "px")
-          }
-        }
-
-      })
-      if (sideNavItem.classList.contains("mini")) changeButtonMinifyContent("mini", e)
-      else changeButtonMinifyContent("", e)
-    })
-  }
-
-  function changeButtonMinifyContent(state, e) {
-    if (state === "mini") {
-      e.innerHTML = `<i class="fa fa-align-justify"></i>`
-      setMarginFromSideBar("60px")
+  sideNavMinifyBtn.click(function (ev) {
+    ev.preventDefault()
+    if (sideNav.hasClass("mini")) {
+      sideNav.removeClass("mini")
+      changeButtonMinifyContent()
     }
     else {
-      e.innerHTML = `<i class="fa fa-align-right"></i>`
-      setMarginFromSideBar("240px")
+      if (windowState === "mobile") sidebarEvents("hide", "show")
+      else {
+        changeButtonMinifyContent("mini")
+        sideNav.addClass("mini")
+        sideNav.attr("style", "min-height: " + body.clientHeight + "px")
+      }
     }
+  })
+
+  function changeButtonMinifyContent(state = "") {
+    if (state === "mini") sideNavMinifyBtn.html(`<i class="fa fa-align-justify"></i>`), setMarginFromSideBar("60px")
+    else sideNavMinifyBtn.html(`<i class="fa fa-align-right"></i>`), setMarginFromSideBar("240px")
   }
 
   function setMarginFromSideBar(margin = "0px") {
