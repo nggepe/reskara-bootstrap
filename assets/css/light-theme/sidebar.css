@@ -102,7 +102,11 @@ nav.side-nav .has-child::after {
   transition: .2s;
 }
 
-nav .has-child.active::after {
+nav.side-nav .has-child.active {
+  background-color: var(--background-tertiary);
+}
+
+nav.side-nav .has-child.active::after {
   transform: rotate(90deg);
   transition: .2s;
 }
@@ -147,6 +151,14 @@ nav.side-nav.mini .logo {
 
 nav.side-nav.mini>ul>li>a {
   text-align: center;
+}
+
+nav.side-nav.mini>ul>li a.active {
+  background-color: var(--background-secondary) !important;
+}
+
+nav.side-nav.mini>ul>li a.active>span {
+  background-color: var(--background-secondary);
 }
 
 nav.side-nav.mini ul>li>a span, nav.side-nav.mini .has-child::after, nav.side-nav.mini>ul>li>a.active+ul {

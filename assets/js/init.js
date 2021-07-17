@@ -140,9 +140,11 @@ RB.ready(function () {
 
       if (rb(a).hasClass("has-child") && rb(a).hasClass("active")) rb(a).removeClass("active")
       else rb(a).addClass("active")
-      sideNav.find("a", function (a1) {
-        if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
-      })
+
+      if (!rb(a).hasClass("has-child"))
+        sideNav.find("a", function (a1) {
+          if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
+        })
     })
   })
 
@@ -156,8 +158,7 @@ RB.ready(function () {
     if (state === "hide") {
       sideNav.removeClass("mini"), sideNav.addClass("hide")
       RB.delay(200, function () {
-        sideNav.attr("style", "display: none"),
-          setMarginFromSideBar(0), sidebarState = "hide"
+        sideNav.attr("style", "display: none"), setMarginFromSideBar(0), sidebarState = "hide"
       })
     }
     if (state === "show") {
