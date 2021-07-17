@@ -1,4 +1,4 @@
-const sideNavItems = document.querySelectorAll("nav.side-nav"), sideNavMinify = document.querySelectorAll(".minify-sidenav")
+const sideNavMinify = document.querySelectorAll(".minify-sidenav")
 var sidebarState, windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
 const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
@@ -67,23 +67,45 @@ class RB {
       })
     })
   }
+
+  parents(query) {
+    var state = false;
+    this.el.forEach(function (e) {
+      state = getParent(query, e)
+    })
+
+    function getParent(p, c) {
+      const parent = p instanceof HTMLElement ? p : document.querySelectorAll(p)[0]
+      const child = c instanceof HTMLElement ? c : document.querySelectorAll(c)[0]
+
+      if (parent.contains(child)) return true
+      else return false
+    }
+
+    return state
+  }
+
+  hasChild(child) {
+    child = child instanceof HTMLElement ? child : document.querySelector(child)
+    var state = false
+    this.el.forEach(function (e) {
+      state = e.contains(child)
+    })
+    return state
+  }
+
   static delay(time = 0, callback = function () { }) {
-    var interval = setInterval(function () {
-      callback()
-      clearInterval(interval)
-    }, time)
+    var interval = setInterval(function () { callback(), clearInterval(interval) }, time)
   }
 
   static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
 }
 
 const rb = function (elem) { return new RB(elem) }
+const sideNav = rb('nav.side-nav')
 RB.ready(function () {
   if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
   else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
-
-
-  const sideNavItems2 = rb('nav.side-nav')
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -98,28 +120,25 @@ RB.ready(function () {
   })
 
   window.addEventListener("click", function (e) {
-    sideNavItems2.all(function (e2) {
-      if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") {
-        sidebarEvents("hide", '')
-      }
-    })
+    if (!sideNav.hasChild(e.target) && sidebarState === "show") sidebarEvents("hide", "")
 
     appBarMenu.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
 
-  sideNavItems2.find("a", function (a) {
+  sideNav.find("a", function (a) {
     rb(a).click(function () {
 
       if (rb(a).hasClass("has-child") && rb(a).hasClass("active")) rb(a).removeClass("active")
       else rb(a).addClass("active")
-      sideNavItems2.find("a", function (a1) {
+      sideNav.find("a", function (a1) {
         if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
       })
     })
   })
-  sideNavItems2.all(function (e) {
+
+  sideNav.all(function (e) {
     if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px")
     sideNavMinifyButton(e)
   })
@@ -130,29 +149,21 @@ RB.ready(function () {
 
   function sidebarEvents(state, btn) {
     if (state === "hide") {
-      sideNavItems.forEach(function (e1) {
-        e1.classList.remove("mini")
-        e1.classList.add("hide")
-        RB.delay(200, function () {
-          e1.setAttribute("style", "display: none")
-          setMarginFromSideBar(0)
-        })
+      sideNav.removeClass("mini"), sideNav.addClass("hide")
+      RB.delay(200, function () {
+        sideNav.attr("style", "display: none"),
+          setMarginFromSideBar(0), sidebarState = "hide"
       })
-      sidebarState = "hide"
     }
     if (state === "show") {
-      sideNavItems.forEach(function (e1) {
-        e1.classList.remove("hide")
-        RB.delay(100, function () {
-          e1.setAttribute("style", "display: block")
-          if (windowState === "dekstop")
-            setMarginFromSideBar("240px")
-        })
+      sideNav.removeClass("hide")
+      RB.delay(200, function () {
+        sideNav.attr("style", "display: block")
+        if (windowState === "dekstop") setMarginFromSideBar("240px")
+        sidebarState = state
       })
-      sidebarState = "show"
     }
-    if (btn !== "")
-      sidebarBtnMobileCollapse(btn)
+    if (btn !== "") sidebarBtnMobileCollapse(btn)
   }
 
   function sidebarBtnMobileCollapse(state) {
@@ -161,6 +172,7 @@ RB.ready(function () {
   }
 
   function sideNavMinifyButton(sideNavItem) {
+    console.log(windowState)
     sideNavMinify.forEach(function (e) {
       e.addEventListener("click", function (e1) {
         if (sideNavItem.classList.contains("mini")) {
