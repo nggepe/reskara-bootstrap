@@ -6,12 +6,17 @@
   font-size: 14px;
 }
 
+.card .card-title {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 .card {
   box-shadow: 0px 0px 10px var(--shadow-primary);
 }
 
 .card .card-title-actions {
   position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+  right: 0.25rem;
+  top: 0.25rem;
 }
