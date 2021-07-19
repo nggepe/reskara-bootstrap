@@ -7,13 +7,17 @@
   --border-accent: #333;
   --text-primary: #2c2e35;
   --text-secondary: #656676;
+  --text-white: #fff;
   --text-blue: rgb(69, 143, 255);
   --text-orange: rgb(255, 153, 0);
   --text-js: rgb(214 197 0);
   --scroll-background: rgb(207, 236, 255);
   --scroll-thumb: rgb(176, 206, 226);
   --shadow-primary: #8a8a8a40;
-  --hr-color: #353b52
+  --hr-color: #353b52;
+  --primary: #00A7CC;
+  --danger: #f74a4a;
+  --success: #329c50;
 }
 
 @font-face {
@@ -35,4 +39,26 @@
 
 .bg-primary {
   background-color: var(--background-primary);
+}
+
+.page-title {
+  display: flex;
+}
+
+.page-title .text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.page-title .text::before {
+  content: "";
+  margin-right: 10px;
+  width: 30px;
+  border-radius: 5px;
+  height: 8px;
+  background-color: var(--primary);
+}
+
+.page-lead {
+  padding-left: 42px;
 }

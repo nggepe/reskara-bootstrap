@@ -84,38 +84,30 @@
   <script src="assets/plugins/jquery-3.6.0/jquery.min.js"></script>
   <script src="assets/js/init.js"></script>
   <script>
-    const base_url = window.location.protocol + window.location.port + "//" + window.location.hostname + window.location.pathname
+    const base_url = location.href
+    if (window.location.pathname.substr(window.location.pathname.length - 1) != "/") {
+      location.href = location.href + "/"
+    }
+
     const content = document.getElementById("content")
 
     if (window.location.hash !== "") $("#content").load(window.location.hash.substr(2))
+    $("nav.side-nav").find("a").click(function (e) {
+      e.preventDefault()
+      const href = $(this).attr("href")
+        , host = href.replace(/(http:\/\/|https:\/\/)/g, "").split("/")[0]
+        , isHosted = href.includes("http://") || href.includes("https://")
+        , target = $(this).attr("target")
 
-    document.querySelectorAll("a").forEach(function (e) {
-      e.addEventListener("click", function (e2) {
-        e2.preventDefault()
-        const href = e.getAttribute("href")
-          , host = href.replace(/(http:\/\/|https:\/\/)/g, "").split("/")[0]
-          , isHosted = href.includes("http://") || href.includes("https://")
-          , target = e.getAttribute("target")
-        if (href === "" || href == "index.html") content.innerHTML = "", window.location.hash = ""
-        else if (href === "#") window.scrollTo({ top: 0 })
-        else if (href === "javascript:") { }
-        else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
-        else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
-        else $("#content").load(href, function () {
-          window.location.hash = "/" + href
-        })
-
+      if (href === "" || href == "index.html") content.innerHTML = "", window.location.hash = ""
+      else if (href === "#") window.scrollTo({ top: 0 })
+      else if (href === "javascript:") { }
+      else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
+      else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
+      else $("#content").load(href, function () {
+        window.location.hash = "/" + href
       })
     })
-    function request(href) {
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", href);
-      xmlHttp.send(null);
-      xmlHttp.onreadystatechange = function (st) {
-        content.innerHTML = xmlHttp.responseText
-        window.location.hash = "/" + href
-      }
-    }
   </script>
 </body>
 

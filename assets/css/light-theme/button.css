@@ -1,12 +1,4 @@
-.btn.btn-circle {
-  padding: .25rem .5rem;
-  min-width: 2rem;
-  min-height: 2rem;
-  border-radius: 100%;
-  font-size: 1rem;
-  color: var(--text-secondary);
-}
-
-.btn.btn-circle:hover {
-  color: var(--text-primary);
+.btn.btn-primary {
+  background-color: var(--primary);
+  border: none;
 }
