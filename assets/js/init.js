@@ -5,101 +5,6 @@ const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const body = document.querySelector("body")
 
 class RB {
-  constructor(e) {
-    if (e instanceof HTMLElement) this.el = [e]
-    else this.el = document.querySelectorAll(e);
-  }
-
-  all(cb = function (e) { }) { this.el.forEach(function (e) { cb(e) }) }
-
-  click(cb = function (event) { }) {
-    this.el.forEach(function (e) {
-      e.addEventListener("click", function (ev) {
-        cb(ev)
-      })
-    })
-  }
-
-  listen(ev, cb) {
-    this.el.forEach(function (e) { e.addEventListener(ev, cb) })
-  }
-
-  hasClass(className) {
-    var state = false
-    this.el.forEach(function (e) {
-      state = e.classList.contains(className)
-    })
-    return state
-  }
-  load(url, success = function () { }) {
-    const xmlHttp = new XMLHttpRequest(), element = this.el
-
-    xmlHttp.open("GET", url);
-    xmlHttp.send(null);
-    xmlHttp.onreadystatechange = function (st) {
-      element.forEach(function (e) {
-        e.innerHTML = xmlHttp.responseText
-      })
-      if (typeof success !== "undefined")
-        success()
-    }
-  }
-
-  attr(getter, setter = null) {
-    this.el.forEach(function (e) {
-      if (setter === null || typeof setter === "undefined")
-        e.getAttribute(getter)
-      else e.setAttribute(getter, setter)
-    })
-  }
-
-  addClass(className) {
-    this.el.forEach(function (e) { if (!e.classList.contains(className)) e.classList.add(className) })
-  }
-  removeClass(className) {
-    this.el.forEach(function (e) { if (e.classList.contains(className)) e.classList.remove(className) })
-  }
-
-  find(elem, cb) {
-    this.el.forEach(function (e) {
-      e.querySelectorAll(elem).forEach(function (e1) {
-        cb(e1)
-      })
-    })
-  }
-
-  parents(query) {
-    var state = false;
-    this.el.forEach(function (e) {
-      state = getParent(query, e)
-    })
-
-    function getParent(p, c) {
-      const parent = p instanceof HTMLElement ? p : document.querySelectorAll(p)[0]
-      const child = c instanceof HTMLElement ? c : document.querySelectorAll(c)[0]
-
-      if (parent.contains(child)) return true
-      else return false
-    }
-
-    return state
-  }
-
-  hasChild(child) {
-    child = child instanceof HTMLElement ? child : document.querySelector(child)
-    var state = false
-    this.el.forEach(function (e) {
-      state = e.contains(child)
-    })
-    return state
-  }
-
-  html(el) {
-    this.el.forEach(function (e) {
-      e.innerHTML = el
-    })
-  }
-
   static delay(time = 0, callback = function () { }) {
     var interval = setInterval(function () { callback(), clearInterval(interval) }, time)
   }
@@ -107,13 +12,16 @@ class RB {
   static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
 }
 
-const rb = function (elem) { return new RB(elem) }
-const sideNav = rb('nav.side-nav'), sideNavMinifyBtn = rb('.minify-sidenav'), sidebarBtnMobile = rb(".sidebar-btn-mobile")
-RB.ready(function () {
+const sideNav = $('nav.side-nav'), sideNavMinifyBtn = $('.minify-sidenav'), sidebarBtnMobile = $(".sidebar-btn-mobile")
+$(document).ready(function () {
   if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
   else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
   if (sideNav.hasClass("mini")) changeButtonMinifyContent("mini")
   else changeButtonMinifyContent("")
+
+  if (sideNav.height() < body.clientHeight) {
+    sideNav.attr("style", "height: " + body.clientHeight + "px")
+  }
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -128,25 +36,23 @@ RB.ready(function () {
   })
 
   window.addEventListener("click", function (e) {
-    if (!sideNav.hasChild(e.target) && sidebarState === "show" && windowState === "mobile") sidebarEvents("hide", "")
+
+    if (sideNav.find(e.target).length < 1 && sideNav.html() !== $(e.target).html() && sidebarState === "show" && windowState === "mobile") sidebarEvents("hide", "")
 
     appBarMenu.forEach(function (e2) {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
-
-  sideNav.find("a", function (a) {
-    rb(a).click(function () {
-
-      if (rb(a).hasClass("has-child") && rb(a).hasClass("active")) rb(a).removeClass("active")
-      else rb(a).addClass("active")
-      sideNav.find("a", function (a1) {
-        if (a !== a1 && !rb(a1).hasClass("has-child") && rb(a1).hasClass("active")) rb(a1).removeClass("active")
-      })
+  sideNav.find("a").click(function (e) {
+    if ($(this).hasClass("has-child") && $(this).hasClass("active")) $(this).removeClass("active")
+    else $(this).addClass("active")
+    const el = this
+    if (!$(this).hasClass("has-child")) sideNav.find("a").each(function () {
+      if (!$(this).hasClass("has-child") && el !== this) $(this).removeClass("active")
     })
   })
 
-  sideNav.all(function (e) { if (e.clientHeight < body.clientHeight) e.setAttribute("style", "height: " + body.clientHeight + "px") })
+
   sidebarBtnMobile.click(function (e) {
     if (sidebarState === "show") sidebarEvents("hide", '')
     else sidebarEvents("show", '')
@@ -156,11 +62,10 @@ RB.ready(function () {
     if (state === "hide") {
       sideNav.removeClass("mini"), sideNav.addClass("hide")
       RB.delay(200, function () {
-        sideNav.attr("style", "display: none"),
-          setMarginFromSideBar(0), sidebarState = "hide"
+        sideNav.attr("style", "display: none"), setMarginFromSideBar(0), sidebarState = "hide"
       })
     }
-    if (state === "show") {
+    else if (state === "show") {
       sideNav.removeClass("hide")
       RB.delay(200, function () {
         sideNav.attr("style", "display: block")
@@ -197,7 +102,7 @@ RB.ready(function () {
   }
 
   function setMarginFromSideBar(margin = "0px") {
-    rb("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
+    $("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
   }
 
   function appBarState(state = "show") {
