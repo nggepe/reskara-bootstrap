@@ -6,8 +6,7 @@ html {
 hr {
   margin-top: .5rem;
   margin-bottom: .5rem;
-  height: 1px;
-  border: 1px solid var(--hr-color);
+  border: 0;
   overflow: hidden;
 }
 

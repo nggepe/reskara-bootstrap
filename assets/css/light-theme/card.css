@@ -11,12 +11,55 @@
   margin-bottom: 0;
 }
 
-.card {
-  box-shadow: 0px 0px 10px var(--shadow-primary);
+.card .card-header {
+  display: flex;
 }
 
 .card .card-title-actions {
-  position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
+  position: relative;
+  width: fit-content;
+  margin-left: auto;
+  display: flex;
+}
+
+.card .card-title-actions button {
+  padding: .1875rem .375rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  border-radius: 100%;
+  font-size: .75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.card.card-primary .card-title-actions button {
+  background-color: var(--primary);
+  color: var(--text-white);
+}
+
+.card.card-primary .card-header {
+  background-color: var(--primary);
+  color: var(--text-white);
+}
+
+.card.card-danger .card-title-actions button {
+  background-color: var(--danger);
+  color: var(--text-white);
+}
+
+.card.card-danger .card-header {
+  background-color: var(--danger);
+  color: var(--text-white);
+}
+
+.card.card-success .card-title-actions button {
+  background-color: var(--success);
+  color: var(--text-white);
+}
+
+.card.card-success .card-header {
+  background-color: var(--success);
+  color: var(--text-white);
 }
