@@ -30,7 +30,7 @@
           <li><a href="#"><span>Accordion</span></a></li>
           <li><a href="#"><span>Alerts</span></a></li>
           <li><a href="#"><span>Badge</span></a></li>
-          <li><a href="#"><span>Breadcrumb</span></a></li>
+          <li><a href="pages/breadcrumbs.html"><span>Breadcrumb</span></a></li>
           <li><a href="#"><span>Buttons</span></a></li>
           <li><a href="#"><span>Button Group</span></a></li>
           <li><a href="pages/cards.html"><span>Card</span></a></li>
@@ -41,10 +41,30 @@
           <li><a href="#"><span>List Group</span></a></li>
           <li><a href="#"><span>Modal</span></a></li>
           <li><a href="#"><span>Nav & tabs</span></a></li>
+          <li><a href="pages/spinner.html"><span>Spinner</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:" class="has-child"><i class="fa fa-layer-group text-js"></i><span>Multi level
+            menu</span></a>
+        <ul>
+          <li><a href="#"><span>Menu 1</span></a></li>
+          <li><a href="#"><span>Menu 2</span></a></li>
           <li>
-            <a href="javascript:" class="has-child"><span>Multi level menu</span></a>
+            <a href="javascript:" class="has-child"><span>Menu 3</span></a>
             <ul>
-              <li><a href="#"><span>Menu1</span></a></li>
+              <li><a href="#"><span>Menu 1</span></a></li>
+              <li><a href="#"><span>Menu 2</span></a></li>
+              <li>
+                <a href="javascript:" class="has-child"><span>Menu 3</span></a>
+                <ul>
+                  <li><a href="#"><span>Menu 1</span></a></li>
+                  <li><a href="#"><span>Menu 2</span></a></li>
+                  <li>
+                    <a><span>Menu 3</span></a>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </li>
         </ul>
@@ -91,7 +111,7 @@
 
     const content = document.getElementById("content")
 
-    if (window.location.hash !== "") $("#content").load(window.location.hash.substr(2))
+    if (window.location.hash !== "") loading(window.location.hash.substr(2))
     $("nav.side-nav").find("a").click(function (e) {
       e.preventDefault()
       const href = $(this).attr("href")
@@ -104,10 +124,27 @@
       else if (href === "javascript:") { }
       else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
       else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
-      else $("#content").load(href, function () {
-        window.location.hash = "/" + href
-      })
+      else loading(href, window.location.hash = "/" + href)
     })
+
+    function loading(url, after = "") {
+      $("#content").html(`
+      <div class="d-flex justify-content-center w-100 align-self-center" style="min-height: 77vh;">
+        <div class="spinner-border text-primary align-self-center" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>`
+      )
+      $.ajax({
+        url: url,
+        type: "GET",
+        mimeType: "text/html charset=utf-8",
+        success: function (data) {
+          $("#content").html(data)
+          window.location.hash = after
+        }
+      })
+    }
   </script>
 </body>
 
