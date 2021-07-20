@@ -14,6 +14,12 @@ in dev
 1. Light
 2. Dark
 
+# Primary Plugin
+
+1. Bootstrap 5
+2. JQuery
+3. Fontawesome (asynchronous loading)
+
 # Component List
 
 <a href="https://github.com/nggepe/reskara-bootstrap/projects/1">Click here</a>

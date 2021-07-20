@@ -8,7 +8,6 @@
   <title>Reskara Bootsrap</title>
   <link rel="icon" href="assets/img/logos/logo-square.png" type="image/icon type">
   <link rel="stylesheet" href="assets/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/plugins/highlightjs-11.1.0/atom-one-dark.min.css">
 </head>
@@ -102,7 +101,15 @@
   <script src="assets/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/plugins/highlightjs-11.1.0/highlight.min.js"></script>
   <script src="assets/plugins/jquery-3.6.0/jquery.min.js"></script>
-  <script src="assets/js/init.js"></script>
+  <script src="assets/js/reskara-bootstrap.js"></script>
+  <script>
+    $(document).ready(function () {
+      const awesome = document.createElement("link")
+      awesome.setAttribute("rel", "stylesheet")
+      awesome.setAttribute("href", "assets/plugins/fontawesome-free/css/all.min.css")
+      document.querySelector("head").appendChild(awesome)
+    })
+  </script>
   <script>
     const base_url = location.href
     if (window.location.pathname.substr(window.location.pathname.length - 1) != "/") {
@@ -111,7 +118,7 @@
 
     const content = document.getElementById("content")
 
-    if (window.location.hash !== "") loading(window.location.hash.substr(2))
+    if (window.location.hash !== "") loading(window.location.hash.substr(2), window.location.hash)
     $("nav.side-nav").find("a").click(function (e) {
       e.preventDefault()
       const href = $(this).attr("href")
