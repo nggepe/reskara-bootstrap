@@ -67,7 +67,7 @@ nav.side-nav ul {
 }
 
 nav.side-nav ul>li a:hover span {
-  padding-left: 0.1rem;
+  margin-left: 0.9rem;
 }
 
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {

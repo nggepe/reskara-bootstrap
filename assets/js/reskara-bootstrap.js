@@ -52,6 +52,15 @@ $(document).ready(function () {
     })
   })
 
+  sidenavInit(sideNav.children("ul"), 30)
+  function sidenavInit(params, padding) {
+    const li = $(params).children("li")
+    if ($(li).has("a.has-child").length > 0) {
+      $(li).children("ul").children("li").children("a").attr("style", "padding-left: " + padding + "px")
+      sidenavInit($(li).children("ul"), padding + 10)
+    }
+  }
+
 
   sidebarBtnMobile.click(function (e) {
     if (sidebarState === "show") sidebarEvents("hide", '')

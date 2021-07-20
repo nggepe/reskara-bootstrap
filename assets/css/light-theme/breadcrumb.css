@@ -8,4 +8,47 @@ nav.breadcrumb {
 
 nav.breadcrumb ol {
   margin-bottom: 0;
+  color: var(--text-secondary);
+}
+
+nav.breadcrumb ol>li:not(:first-child)::before {
+  content: ">" !important;
+  color: inherit;
+}
+
+nav.breadcrumb ol>li>a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav.breadcrumb ol>li.breadcrumb-item.active {
+  color: var(--text-tertiary);
+}
+
+nav.breadcrumb ol>li>a:hover {
+  font-weight: 600;
+}
+
+nav.breadcrumb.breadcrumb-primary {
+  background-color: var(--primary);
+}
+
+nav.breadcrumb.breadcrumb-primary ol {
+  color: var(--text-white);
+}
+
+nav.breadcrumb.breadcrumb-primary ol>li.breadcrumb-item.active {
+  color: var(--text-white-secondary);
+}
+
+nav.breadcrumb.breadcrumb-danger {
+  background-color: var(--danger);
+}
+
+nav.breadcrumb.breadcrumb-danger ol {
+  color: var(--text-white);
+}
+
+nav.breadcrumb.breadcrumb-danger ol>li.breadcrumb-item.active {
+  color: var(--text-white-secondary);
 }
