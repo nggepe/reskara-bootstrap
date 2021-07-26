@@ -20,7 +20,7 @@
           class="fa fa-align-right"></i></button>
     </div>
     <ul>
-      <li><a href="index.html"><i class="fa fa-tachometer-alt text-blue"></i><span>Dashboard</span></a></li>
+      <li><a href="#"><i class="fa fa-tachometer-alt text-blue"></i><span>Dashboard</span></a></li>
       <li>
         <a href="javascript:" class="has-child">
           <i class="fa fa-dharmachakra text-orange"></i><span>Components</span>
@@ -122,7 +122,7 @@
 
     window.addEventListener("hashchange", function (ev) {
       const href = findHash(ev.newURL);
-      if (href != "") loading(href, "none")
+      if (href != "" && href != "index.html" && href != "#") loading(href, "none")
     })
 
     function findHash(url) {
@@ -143,12 +143,8 @@
         , isHosted = href.includes("http://") || href.includes("https://")
         , target = $(this).attr("target")
 
-      if (href === "" || href == "index.html") content.innerHTML = "", window.location.hash = ""
-      else if (href === "#") window.scrollTo({ top: 0 })
-      else if (href === "javascript:") { }
-      else if (isHosted && host !== window.location.hostname && target == "_blank") window.open(href, '_blank')
-      else if (isHosted && host !== window.location.hostname && target != "_blank") window.location.href = href
-      else loading(href, window.location.hash = "/" + href)
+      console.log(href)
+      if (href !== "javascript:" && href !== "#" && href !== "index.html") window.location.hash = "/" + href
     })
 
     function loading(url, after = "") {
@@ -164,10 +160,10 @@
         type: "GET",
         mimeType: "text/html charset=utf-8",
         async: true,
+        cache: false,
         success: function (data) {
           $("#content").html(data)
-          if (after != "none")
-            window.location.hash = after
+          if (after != "none") window.location.hash = after
         }
       })
     }
