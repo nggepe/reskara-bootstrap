@@ -26,7 +26,7 @@
           <i class="fa fa-dharmachakra text-orange"></i><span>Components</span>
         </a>
         <ul>
-          <li><a href="#"><span>Accordion</span></a></li>
+          <li><a href="pages/accordions.html"><span>Accordion</span></a></li>
           <li><a href="#"><span>Alerts</span></a></li>
           <li><a href="#"><span>Badge</span></a></li>
           <li><a href="pages/breadcrumbs.html"><span>Breadcrumb</span></a></li>
@@ -119,6 +119,23 @@
     const content = document.getElementById("content")
 
     if (window.location.hash !== "") loading(window.location.hash.substr(2), window.location.hash)
+
+    window.addEventListener("hashchange", function (ev) {
+      const href = findHash(ev.newURL);
+      if (href != "") loading(href, "none")
+    })
+
+    function findHash(url) {
+      for (var i = 0; i < url.length; i++) {
+        if (url.substring(i, i + 1) == "#") {
+          var newUrl = url.substring(i)
+          if (newUrl.substring(0, 1) == "#" && newUrl.substring(0, 2) == "#/") newUrl = newUrl.substring(2)
+          else if (newUrl.substring(0, 1) == "#") newUrl = newUrl.substring(1)
+
+          return newUrl;
+        }
+      }
+    }
     $("nav.side-nav").find("a").click(function (e) {
       e.preventDefault()
       const href = $(this).attr("href")
@@ -146,9 +163,11 @@
         url: url,
         type: "GET",
         mimeType: "text/html charset=utf-8",
+        async: true,
         success: function (data) {
           $("#content").html(data)
-          window.location.hash = after
+          if (after != "none")
+            window.location.hash = after
         }
       })
     }
