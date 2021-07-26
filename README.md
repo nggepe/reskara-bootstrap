@@ -1,4 +1,5 @@
 # reskara-bootstrap
+<img src="https://raw.githubusercontent.com/nggepe/reskara-bootstrap/master/assets/img/logos/logo-square.png">
 a free web admin template with bootstrap 5 only.
 
 # Status

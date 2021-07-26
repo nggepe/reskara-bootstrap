@@ -121,19 +121,26 @@
 
     window.addEventListener("hashchange", function (ev) {
       const href = findHash(ev.newURL);
-      if (href != "" && href != "index.html" && href != "#") loading(href, "none")
+      if (href.valid) loading(href.url, "none")
     })
 
     function findHash(url) {
+      let valid = false;
       for (var i = 0; i < url.length; i++) {
         if (url.substring(i, i + 1) == "#") {
           var newUrl = url.substring(i)
-          if (newUrl.substring(0, 1) == "#" && newUrl.substring(0, 2) == "#/") newUrl = newUrl.substring(2)
-          else if (newUrl.substring(0, 1) == "#") newUrl = newUrl.substring(1)
-
-          return newUrl;
+          if (newUrl.substring(0, 1) == "#" && newUrl.substring(0, 2) == "#/") {
+            newUrl = newUrl.substring(2)
+            valid = true;
+            break
+          }
+          else if (newUrl.substring(0, 1) == "#") {
+            newUrl = newUrl.substring(1)
+            break
+          }
         }
       }
+      return { url: newUrl, valid: valid }
     }
     $("nav.side-nav").find("a").click(function (e) {
       e.preventDefault()
