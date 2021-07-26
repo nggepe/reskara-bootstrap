@@ -37,8 +37,6 @@ $(document).ready(function (e) {
     } else if (elem.msRequestFullscreen) { /* IE11 */
       elem.msRequestFullscreen();
     }
-    // return false
-    // console.log($(this).parents(".card")[0])
   })
 })
 
