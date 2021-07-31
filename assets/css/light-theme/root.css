@@ -5,26 +5,33 @@
   --background-tertiary: #f6faff;
   --border-primary: #eaeaea;
   --border-accent: #333;
-  --text-primary: #2c2e35;
+  --text-primary: #5d5a67;
   --text-secondary: #656676;
   --text-tertiary: #6d748a96;
   --text-white: #fff;
+  --text-black: #333;
   --text-white-secondary: #ffffff6e;
   --text-blue: rgb(69, 143, 255);
   --text-orange: rgb(255, 153, 0);
   --text-js: rgb(214 197 0);
   --scroll-background: rgb(207, 236, 255);
   --scroll-thumb: rgb(176, 206, 226);
-  --shadow-primary: #8a8a8a40;
+  --shadow-primary: #798db140;
   --hr-color: #353b52;
   --primary: #00A7CC;
   --danger: #f74a4a;
   --success: #198754;
+  --bg-primary-gradient: linear-gradient(to bottom right, #4be8d4 0%, #129bd2 100%);
+  --bg-danger-gradient: linear-gradient(to bottom right, #f1bf64 0%, #f71d36 100%);
 }
 
 @font-face {
   font-family: Poppins;
   src: url(../../fonts/Poppins-Regular.ttf);
+}
+
+.text-primary {
+  color: var(--text-primary) !important;
 }
 
 .text-blue {
@@ -39,8 +46,26 @@
   color: var(--text-js);
 }
 
+.text-black {
+  color: var(--text-black);
+}
+
+.text-success {
+  color: var(--success);
+}
+
 .bg-primary {
   background-color: var(--background-primary);
+}
+
+.bg-primary-gd {
+  background: var(--bg-primary-gradient);
+  color: var(--text-white);
+}
+
+.bg-danger-gd {
+  background: var(--bg-danger-gradient);
+  color: var(--text-white);
 }
 
 .page-title {

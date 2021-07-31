@@ -1,7 +1,11 @@
 .primary-y-shadow {
-  box-shadow: 0 5px 6px var(--shadow-primary);
+  box-shadow: 0 3px 4px var(--shadow-primary);
 }
 
-.primary-6-shadow {
-  box-shadow: 3px 5px 10px var(--shadow-primary);
+.shadow-3-5-20 {
+  box-shadow: 3px 5px 20px var(--shadow-primary);
+}
+
+.shadow-0-0-2 {
+  box-shadow: 0px 0px 2px var(--shadow-primary);
 }

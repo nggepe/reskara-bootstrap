@@ -4,3 +4,10 @@ img.appbar-avatar {
   border-radius: 0.7rem;
   object-fit: cover;
 }
+
+.avatar.avatar-md {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 1.6rem;
+  font-size: 1.5rem;
+}
