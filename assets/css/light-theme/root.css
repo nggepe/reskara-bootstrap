@@ -23,6 +23,8 @@
   --success: #198754;
   --bg-primary-gradient: linear-gradient(to bottom right, #4be8d4 0%, #129bd2 100%);
   --bg-danger-gradient: linear-gradient(to bottom right, #f1bf64 0%, #f71d36 100%);
+  --bg-purple-gradient: linear-gradient(to bottom right, #9e88f5 0%, #6259ca 100%);
+  --bg-crystal-gradient: linear-gradient(to bottom right, #21e081 0%, #227fdc 100%);
 }
 
 @font-face {
@@ -54,6 +56,10 @@
   color: var(--success);
 }
 
+.text-danger {
+  color: var(--danger);
+}
+
 .bg-primary {
   background-color: var(--background-primary);
 }
@@ -65,6 +71,16 @@
 
 .bg-danger-gd {
   background: var(--bg-danger-gradient);
+  color: var(--text-white);
+}
+
+.bg-purple-gd {
+  background: var(--bg-purple-gradient);
+  color: var(--text-white);
+}
+
+.bg-crystal-gd {
+  background: var(--bg-crystal-gradient);
   color: var(--text-white);
 }
 
