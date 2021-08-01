@@ -72,12 +72,12 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-title"></div>
-        <div class="card-body">
-          <canvas id="trans-chart" style="width: 100%; height: 400px;"></canvas>
+    <div class="col-lg-8 col-lg-12 col-xl-8 pb-3">
+      <div class="widget pt-3 pb-4 px-4 shadow-0-0-2">
+        <div class="fw-bold fs-5 text-black mb-1">Profit
+          <hr>
         </div>
+        <canvas id="trans-chart" style="width: 100%; height: 400px;"></canvas>
       </div>
     </div>
   </div>
@@ -91,16 +91,24 @@
     gradientStroke.addColorStop(0, '#4be8d4');
     gradientStroke.addColorStop(1, '#129bd2');
 
-    var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
-    gradientFill.addColorStop(0, "rgba(75, 232, 212, 0.2)");
-    gradientFill.addColorStop(1, "rgba(18, 155, 210, 0.2)");
+    var gradientFill = ctx.createLinearGradient(0, 0, 10, 300);
+    gradientFill.addColorStop(0, "rgba(75, 232, 212, 0.1)");
+    gradientFill.addColorStop(1, "rgba(18, 155, 210, 0.0)");
+
+    var gradientStroke2 = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientStroke2.addColorStop(0, '#9e88f5');
+    gradientStroke2.addColorStop(1, '#6259ca');
+
+    var gradientFill2 = ctx.createLinearGradient(0, 0, 10, 300);
+    gradientFill2.addColorStop(0, "rgba(241, 191, 100, 0.1)");
+    gradientFill2.addColorStop(1, "rgba(247, 29, 54, 0.0)");
 
     var myChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
         datasets: [{
-          label: "Sales",
+          label: "Income",
           borderColor: gradientStroke,
           pointBorderColor: gradientStroke,
           pointBackgroundColor: gradientStroke,
@@ -113,10 +121,33 @@
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [100, 120, 150, 170, 180, 170, 160]
+          data: [85, 95, 90, 100, 90, 95, 101]
+        },
+        {
+          label: "Outcome",
+          borderColor: gradientStroke2,
+          pointBorderColor: gradientStroke2,
+          pointBackgroundColor: gradientStroke2,
+          pointHoverBackgroundColor: gradientStroke2,
+          pointHoverBorderColor: gradientStroke2,
+          pointBorderWidth: 3,
+          pointHoverRadius: 10,
+          pointHoverBorderWidth: 0.3,
+          pointRadius: 1,
+          fill: true,
+          backgroundColor: gradientFill2,
+          borderWidth: 2,
+          data: [80, 90, 85, 100, 95, 85, 100]
         }]
       },
       options: {
+        responsive: true,
+        elements: {
+          line: {
+            capBezierPoints: true,
+            tension: 0.3
+          }
+        },
         animation: {
           easing: "easeInOutBack"
         },
@@ -124,30 +155,20 @@
           position: "bottom"
         },
         scales: {
-          yAxes: [{
-            ticks: {
-              fontColor: "rgba(0,0,0,0.5)",
-              fontStyle: "bold",
-              beginAtZero: true,
-              maxTicksLimit: 5,
-              padding: 20
-            },
-            gridLines: {
+          x: {
+            grid: {
+              display: false,
+              drawBorder: false,
+              drawOnChartArea: false,
               drawTicks: false,
-              display: false
             }
-
-          }],
-          xAxes: [{
-            gridLines: {
-              zeroLineColor: "transparent"
+          },
+          y: {
+            grid: {
+              drawBorder: false,
+              display: false,
             },
-            ticks: {
-              padding: 20,
-              fontColor: "rgba(0,0,0,0.5)",
-              fontStyle: "bold"
-            }
-          }]
+          }
         }
       }
     });
