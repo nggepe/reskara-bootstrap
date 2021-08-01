@@ -13,6 +13,9 @@
 </head>
 
 <body>
+  <noscript>
+    <p>To display this page you need a browser that supports JavaScript.</p>
+  </noscript>
   <nav class="side-nav">
     <div class="logo">
       <a href="index.html"><img src="assets/img/logos/logo-landscape.png" alt="logo"></a>
@@ -20,7 +23,7 @@
           class="fa fa-align-right"></i></button>
     </div>
     <ul>
-      <li><a href="#"><i class="fa fa-tachometer-alt text-blue"></i><span>Dashboard</span></a></li>
+      <li><a href="pages/dashboard.html"><i class="fa fa-tachometer-alt text-blue"></i><span>Dashboard</span></a></li>
       <li>
         <a href="javascript:" class="has-child">
           <i class="fa fa-dharmachakra text-orange"></i><span>Components</span>
@@ -85,7 +88,7 @@
         <li><a href="#"><i class="fa fa-bell"></i><span class="caption">Notifications</span></a></li>
         <li><a href="#"><i class="fa fa-envelope"></i><span class="caption">Emails</span></a></li>
         <li><a href="#"><img src="assets/img/avatar/gp.jpg" alt="gp" class="appbar-avatar"><span
-              class="caption visible">Profile</span></a>
+              class="caption visible">Paijo</span></a>
         </li>
       </ul>
     </div>
@@ -95,7 +98,8 @@
   <footer class="r-footer a-bold">
     <div class="container-xxl d-flex justify-content-between align-middle">
       <div><a href="https://github.com/nggepe/reskara-bootstrap" target="_blank">Github Repository</a></div>
-      <div><span class="me-1">2021©</span> <a href="https://github.com/nggepe" target="_blank">Gilang Pratama</a></div>
+      <div class="text-end"><span class="me-1">2021©</span> <a href="https://github.com/nggepe" target="_blank">Gilang
+          Pratama</a></div>
     </div>
   </footer>
   <script src="assets/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
@@ -111,13 +115,12 @@
   </script>
   <script>
     const base_url = location.href
-    if (window.location.pathname.substr(window.location.pathname.length - 1) != "/") {
-      location.href = location.href + "/"
-    }
+    if (window.location.pathname.substr(window.location.pathname.length - 1) != "/") location.href = location.href + "/"
 
     const content = document.getElementById("content")
 
     if (window.location.hash !== "") loading(window.location.hash.substr(2), window.location.hash)
+    else loading("pages/dashboard.html")
 
     window.addEventListener("hashchange", function (ev) {
       const href = findHash(ev.newURL);
@@ -149,7 +152,6 @@
         , isHosted = href.includes("http://") || href.includes("https://")
         , target = $(this).attr("target")
 
-      console.log(href)
       if (href !== "javascript:" && href !== "#" && href !== "index.html") window.location.hash = "/" + href
     })
 

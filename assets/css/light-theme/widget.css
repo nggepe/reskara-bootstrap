@@ -1,0 +1,4 @@
+.widget {
+  background-color: var(--background-primary);
+  border-radius: 10px;
+}
