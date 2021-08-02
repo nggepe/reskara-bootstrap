@@ -8,6 +8,7 @@ hr {
   margin-bottom: .5rem;
   border: 0;
   overflow: hidden;
+  background-color: var(--hr-color);
 }
 
 body {
@@ -39,4 +40,8 @@ button:focus {
   font-weight: bold;
   text-decoration: none;
   color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
 }
