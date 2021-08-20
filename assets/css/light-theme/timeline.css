@@ -1,0 +1,43 @@
+ul.timeline {
+  padding: 0;
+  list-style: none;
+  position: relative;
+  font-size: 14px;
+}
+
+ul.timeline>li {
+  padding-left: 40px;
+  position: relative;
+}
+
+ul.timeline::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 0;
+  height: 90%;
+  left: 15px;
+  border-left: 1px solid var(--border-primary);
+}
+
+ul.timeline>li>span.res-bullet {
+  background-color: var(--primary);
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  border-radius: 5px;
+}
+
+ul.timeline>li>span.res-bullet.orange {
+  background-color: var(--text-orange);
+}
+
+ul.timeline>li>span.res-bullet.danger {
+  background-color: var(--danger);
+}
+
+ul.timeline>li>span.res-bullet.purple {
+  background-color: var(--purple);
+}
