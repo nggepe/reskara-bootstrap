@@ -34,6 +34,10 @@ ul.timeline>li>span.res-bullet.orange {
   background-color: var(--text-orange);
 }
 
+ul.timeline>li>span.res-bullet.danger {
+  background-color: var(--danger);
+}
+
 ul.timeline>li>span.res-bullet.purple {
   background-color: var(--purple);
 }
