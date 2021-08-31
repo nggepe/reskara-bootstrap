@@ -234,3 +234,25 @@ nav.side-nav.hide {
   transform: scale(0);
   transition: .2s;
 }
+
+nav.side-nav .mini-hide {
+  display: block;
+}
+
+nav.side-nav.mini .mini-hide {
+  display: none;
+}
+
+nav.side-nav.mini .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+nav.side-nav .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  object-fit: cover;
+}
