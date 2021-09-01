@@ -10,6 +10,7 @@ nav.side-nav {
   transform: scale(1);
   transition: .5s;
   overflow-x: hidden;
+  overflow-y: hidden;
   padding-bottom: 50px;
 }
 
