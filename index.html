@@ -94,13 +94,18 @@
       <ul class="appbar-menu">
         <li><a href="#"><i class="fa fa-bell"></i><span class="caption">Notifications</span></a></li>
         <li><a href="#"><i class="fa fa-envelope"></i><span class="caption">Emails</span></a></li>
-        <li><a href="#"><img src="assets/img/avatar/gp-white.jpg" alt="gp" class="appbar-avatar"><span
+        <li class="dropdown"><a href="#"><img src="assets/img/avatar/gp-white.jpg" alt="gp" class="appbar-avatar"><span
               class="caption visible">Paijo</span></a>
+          <ul class="icon-list">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
         </li>
       </ul>
     </div>
   </nav>
   <div class="r-container" id="content">
+    <!-- here is your content fully loaded -->
   </div>
   <footer class="r-footer a-bold">
     <div class="container-xxl d-flex justify-content-between align-middle">
@@ -118,7 +123,9 @@
       awesome.setAttribute("rel", "stylesheet")
       awesome.setAttribute("href", "assets/plugins/fontawesome-free/css/all.min.css")
       document.querySelector("head").appendChild(awesome)
+
     })
+
   </script>
   <script>
     const base_url = location.href
