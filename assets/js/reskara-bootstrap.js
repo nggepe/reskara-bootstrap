@@ -3,6 +3,10 @@ var sidebarState, windowState
 const mobileQuery = window.matchMedia('(max-width: 768px)')
 const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const body = document.querySelector("body")
+$(".appbar-menu").find(".dropdown").each(function (i, e) {
+  if ($(e).hasClass("active")) $(e).find("ul").show()
+  else $(e).find("ul").hide()
+})
 
 class RB {
   static delay(time = 0, callback = function () { }) {
@@ -18,6 +22,11 @@ $(document).ready(function () {
   else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
   if (sideNav.hasClass("mini")) changeButtonMinifyContent("mini")
   else changeButtonMinifyContent("")
+
+  $(".appbar-menu").find(".dropdown").click(function (e) {
+    $(this).find("ul").show(200)
+    $(this).addClass("active")
+  })
 
   if (sideNav.height() < body.clientHeight) {
     sideNav.attr("style", "height: " + body.clientHeight + "px")
@@ -36,6 +45,15 @@ $(document).ready(function () {
   })
 
   window.addEventListener("click", function (e) {
+
+    $(".appbar-menu").find(".dropdown").each(function (i, e1) {
+      if ($(e1).hasClass("active")) {
+        if ($(e1).find(e.target).length < 1 && e.target != $(this)) {
+          $(this).removeClass("active")
+          $(this).find("ul").hide(200)
+        }
+      }
+    })
 
     if (sideNav.find(e.target).length < 1 && sideNav.html() !== $(e.target).html() && sidebarState === "show" && windowState === "mobile") sidebarEvents("hide", "")
 
