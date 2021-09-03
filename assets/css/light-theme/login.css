@@ -1,0 +1,12 @@
+.login-form {
+  background-color: var(--background-tertiary);
+  padding-top: 5%;
+  min-height: 99vh;
+  justify-items: center;
+  width: 50%;
+}
+
+.login-form .logo {
+  max-width: 200px;
+  max-height: 100px;
+}
