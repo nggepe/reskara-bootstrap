@@ -59,12 +59,13 @@ $(document).ready(function (e) {
   function validateHelper(formGroup, el) {
     if ($(el).val() == "") {
       if ($(formGroup).find(".text-helper").length == 0)
-        formGroup.append("<small class='text-danger text-helper'>Required field!</small>")
+        formGroup.append("<small class='text-danger text-helper'>Required field!</small>"),
+          formGroup.addClass("has-error")
     }
-    else formGroup.find(".text-helper").remove()
+    else formGroup.find(".text-helper").remove(), formGroup.removeClass("has-error")
 
     $(el).on("keyup", function (e) {
-      if ($(this).val() != "") formGroup.find(".text-helper").remove()
+      if ($(this).val() != "") formGroup.find(".text-helper").remove(), formGroup.removeClass("has-error")
     })
   }
 })
