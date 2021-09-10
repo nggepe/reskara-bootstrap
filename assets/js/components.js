@@ -38,6 +38,36 @@ $(document).ready(function (e) {
       elem.msRequestFullscreen();
     }
   })
+
+  $(".form-group").each(function (e) {
+    emptyValidation(this)
+  })
+
+  function emptyValidation(group) {
+    const formGroup = $(group)
+    formGroup.find("input").on("blur", function (e) {
+      validateHelper(formGroup, this)
+    })
+    formGroup.find("select").on("blur", function (e) {
+      validateHelper(formGroup, this)
+    })
+    formGroup.find("textarea").on("blur", function (e) {
+      validateHelper(formGroup, this)
+    })
+  }
+
+  function validateHelper(formGroup, el) {
+    if ($(el).val() == "") {
+      if ($(formGroup).find(".text-helper").length == 0)
+        formGroup.append("<small class='text-danger text-helper'>Required field!</small>"),
+          formGroup.addClass("has-error")
+    }
+    else formGroup.find(".text-helper").remove(), formGroup.removeClass("has-error")
+
+    $(el).on("keyup", function (e) {
+      if ($(this).val() != "") formGroup.find(".text-helper").remove(), formGroup.removeClass("has-error")
+    })
+  }
 })
 
 $(function () {

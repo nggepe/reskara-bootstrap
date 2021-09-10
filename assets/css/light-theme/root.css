@@ -6,7 +6,7 @@
   --border-primary: #eaeaea;
   --border-accent: #333;
   --text-solid: #222;
-  --text-primary: #5d5a67;
+  --text-primary: #3d3d3d;
   --text-secondary: #656676;
   --text-tertiary: #6d748a96;
   --text-white: #fff;
@@ -22,7 +22,7 @@
   --hr-color: #4c567be3;
   --primary: #00A7CC;
   --danger: #f74a4a;
-  --success: #198754;
+  --success: #20ab6a;
   --purple: #6259ca;
   --bg-primary-gradient: linear-gradient(to bottom right, #4be8d4 0%, #129bd2 100%);
   --bg-danger-gradient: linear-gradient(to bottom right, #f1bf64 0%, #f71d36 100%);
@@ -38,6 +38,10 @@
 @font-face {
   font-family: SourceSansPro-Regular;
   src: url(../../fonts/SourceSansPro-Regular.ttf);
+}
+
+.pointer-cursor {
+  cursor: pointer;
 }
 
 .text-family-ssp {
@@ -144,4 +148,8 @@
 
 .page-lead {
   padding-left: 42px;
+}
+
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus, button.btn:focus, select.form-control:focus {
+  box-shadow: 0 4px 10px var(--shadow-primary)
 }

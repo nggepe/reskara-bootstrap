@@ -1,0 +1,12 @@
+.form-group {
+  padding-bottom: 1em;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.form-group.has-error input, .form-group.has-error select, .form-group.has-error textarea {
+  border: 1px solid var(--danger);
+}

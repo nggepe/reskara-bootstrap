@@ -1,9 +1,12 @@
 .login-form {
   background-color: var(--background-tertiary);
-  padding-top: 5%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   min-height: 99vh;
   justify-items: center;
   width: 50%;
+  max-width: 500px;
+  font-size: 14px;
 }
 
 .login-form .logo {
