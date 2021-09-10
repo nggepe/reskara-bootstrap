@@ -1,0 +1,13 @@
+.select2 {
+  width: 100% !important;
+  display: block !important;
+}
+
+.select2-selection.select2-selection--single {
+  height: 38px !important;
+  padding-top: .25rem !important;
+}
+
+.select2-selection__arrow {
+  top: .25rem !important;
+}
