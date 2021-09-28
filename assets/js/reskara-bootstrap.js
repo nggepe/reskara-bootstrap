@@ -1,5 +1,5 @@
 const sideNavMinify = document.querySelectorAll(".minify-sidenav")
-var sidebarState, windowState
+var sidebarState, windowState, sidebarHideState = false
 const mobileQuery = window.matchMedia('(max-width: 768px)')
 const appBarMenu = document.querySelectorAll("nav.appbar .appbar-menu")
 const body = document.querySelector("body")
@@ -14,6 +14,21 @@ class RB {
   }
 
   static ready(cb = function () { }) { document.addEventListener('DOMContentLoaded', cb) }
+}
+
+RB.hideSidebar = function () {
+  sideNav.hide(150)
+  setMarginFromSideBar(0)
+  $(".sidebar-btn-hide").html("<i class='fa fa-arrow-right'></i>")
+  sidebarHideState = true
+}
+
+RB.showSideBar = function () {
+  sideNav.show(150)
+  $(".sidebar-btn-hide").html("<i class='fa fa-arrow-left'></i>")
+  if (sideNav.hasClass("mini")) setMarginFromSideBar("60px")
+  else setMarginFromSideBar("240px")
+  sidebarHideState = false
 }
 
 const sideNav = $('nav.side-nav'), sideNavMinifyBtn = $('.minify-sidenav'), sidebarBtnMobile = $(".sidebar-btn-mobile")
@@ -31,6 +46,15 @@ $(document).ready(function () {
   if (sideNav.height() < body.clientHeight) {
     sideNav.attr("style", "height: " + body.clientHeight + "px")
   }
+
+  $(".sidebar-btn-hide").click(function (e) {
+    console.log(sidebarState);
+    if (!sidebarHideState) {
+      RB.hideSidebar()
+    } else {
+      RB.showSideBar()
+    }
+  })
 
   mobileQuery.addEventListener('change', function (e) {
     if (e.matches) {
@@ -70,43 +94,11 @@ $(document).ready(function () {
     })
   })
 
-  sidenavInit(sideNav.children("ul"), 30)
-  function sidenavInit(params, padding) {
-    const li = $(params).children("li")
-    if ($(li).has("a.has-child").length > 0) {
-      $(li).children("ul").children("li").children("a").attr("style", "padding-left: " + padding + "px")
-      sidenavInit($(li).children("ul"), padding + 10)
-    }
-  }
-
-
   sidebarBtnMobile.click(function (e) {
     if (sidebarState === "show") sidebarEvents("hide", '')
     else sidebarEvents("show", '')
   })
 
-  function sidebarEvents(state, btn) {
-    if (state === "hide") {
-      sideNav.removeClass("mini"), sideNav.addClass("hide")
-      RB.delay(200, function () {
-        sideNav.attr("style", "display: none"), setMarginFromSideBar(0), sidebarState = "hide"
-      })
-    }
-    else if (state === "show") {
-      sideNav.removeClass("hide")
-      RB.delay(200, function () {
-        sideNav.attr("style", "display: block")
-        if (windowState === "dekstop") setMarginFromSideBar("240px")
-        sidebarState = state
-      })
-    }
-    if (btn !== "") sidebarBtnMobileCollapse(btn)
-  }
-
-  function sidebarBtnMobileCollapse(state) {
-    if (state === "hide") sidebarBtnMobile.attr("style", "display: none;")
-    else if (state === "show") sidebarBtnMobile.attr("style", "display: flex;")
-  }
   sideNavMinifyBtn.click(function (ev) {
     ev.preventDefault()
     if (sideNav.hasClass("mini")) {
@@ -123,48 +115,83 @@ $(document).ready(function () {
     }
   })
 
-  function changeButtonMinifyContent(state = "") {
-    if (state === "mini") sideNavMinifyBtn.html(`<i class="fa fa-align-justify"></i>`), setMarginFromSideBar("60px")
-    else sideNavMinifyBtn.html(`<i class="fa fa-align-right"></i>`), setMarginFromSideBar("240px")
-  }
+  sidenavInit(sideNav.children("ul"), 30)
 
-  function setMarginFromSideBar(margin = "0px") {
-    $("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
-  }
-
-  function appBarState(state = "show") {
-    const el = document.createElement("button"), elIn = document.createElement("i")
-    el.setAttribute("class", "appbar-menu-mobile")
-    el.setAttribute("style", "height: 100%;")
-    elIn.classList.add("fas"), elIn.classList.add("fa-ellipsis-v")
-    el.appendChild(elIn)
-    el.addEventListener("click", function (e) {
-      e.preventDefault()
-      appBarMenuState("mobile", "", true)
-    })
-    appBarMenuState(state, el)
-  }
-
-  function appBarMenuState(state = "show", button, collapse = false) {
-    appBarMenu.forEach(function (e) {
-      if (state === "show") {
-        const clasEL = e.parentElement.querySelectorAll(".appbar-menu-mobile")
-        clasEL.forEach(function (e) {
-          e.remove()
-        })
-        if (e.classList.contains("mobile")) {
-          e.classList.remove("mobile")
-        }
-      }
-      else if (state === "hide") {
-        e.classList.add("mobile")
-        e.parentElement.appendChild(button)
-      }
-      else if (state === "mobile" && collapse) {
-        if (e.classList.contains("show")) e.classList.remove("show")
-        else if (!e.classList.contains("show") && e.classList.contains("mobile")) e.classList.add("show")
-      }
-      else if (state === "mobile" && !collapse) if (e.classList.contains("show")) e.classList.remove("show")
-    })
-  }
 })
+
+function sidenavInit(params, padding) {
+  const li = $(params).children("li")
+  if ($(li).has("a.has-child").length > 0) {
+    $(li).children("ul").children("li").children("a").attr("style", "padding-left: " + padding + "px")
+    sidenavInit($(li).children("ul"), padding + 10)
+  }
+}
+
+function sidebarEvents(state, btn) {
+  if (state === "hide") {
+    sideNav.removeClass("mini"), sideNav.addClass("hide")
+    RB.delay(200, function () {
+      sideNav.attr("style", "display: none"), setMarginFromSideBar(0), sidebarState = "hide"
+    })
+  }
+  else if (state === "show") {
+    sideNav.removeClass("hide")
+    RB.delay(200, function () {
+      sideNav.attr("style", "display: block")
+      if (windowState === "dekstop") setMarginFromSideBar("240px")
+      sidebarState = state
+    })
+  }
+  if (btn !== "") sidebarBtnMobileCollapse(btn)
+}
+
+function sidebarBtnMobileCollapse(state) {
+  if (state === "hide") sidebarBtnMobile.attr("style", "display: none;")
+  else if (state === "show") sidebarBtnMobile.attr("style", "display: flex;")
+}
+
+
+function changeButtonMinifyContent(state = "") {
+  if (state === "mini") sideNavMinifyBtn.html(`<i class="fa fa-align-justify"></i>`), setMarginFromSideBar("60px")
+  else sideNavMinifyBtn.html(`<i class="fa fa-align-right"></i>`), setMarginFromSideBar("240px")
+}
+
+function setMarginFromSideBar(margin = "0px") {
+  $("footer.r-footer, .r-container, nav.appbar").attr("style", "margin-left: " + margin)
+}
+
+function appBarState(state = "show") {
+  const el = document.createElement("button"), elIn = document.createElement("i")
+  el.setAttribute("class", "appbar-menu-mobile")
+  el.setAttribute("style", "height: 100%;")
+  elIn.classList.add("fas"), elIn.classList.add("fa-ellipsis-v")
+  el.appendChild(elIn)
+  el.addEventListener("click", function (e) {
+    e.preventDefault()
+    appBarMenuState("mobile", "", true)
+  })
+  appBarMenuState(state, el)
+}
+
+function appBarMenuState(state = "show", button, collapse = false) {
+  appBarMenu.forEach(function (e) {
+    if (state === "show") {
+      const clasEL = e.parentElement.querySelectorAll(".appbar-menu-mobile")
+      clasEL.forEach(function (e) {
+        e.remove()
+      })
+      if (e.classList.contains("mobile")) {
+        e.classList.remove("mobile")
+      }
+    }
+    else if (state === "hide") {
+      e.classList.add("mobile")
+      e.parentElement.appendChild(button)
+    }
+    else if (state === "mobile" && collapse) {
+      if (e.classList.contains("show")) e.classList.remove("show")
+      else if (!e.classList.contains("show") && e.classList.contains("mobile")) e.classList.add("show")
+    }
+    else if (state === "mobile" && !collapse) if (e.classList.contains("show")) e.classList.remove("show")
+  })
+}
