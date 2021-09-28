@@ -35,7 +35,7 @@ nav.side-nav::-webkit-scrollbar-track-piece {
 }
 
 nav.side-nav:hover {
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 nav.side-nav .logo {
@@ -71,6 +71,10 @@ nav.side-nav ul>li a:hover span {
   margin-left: 0.9rem;
 }
 
+nav.side-nav.mini ul>li>a.active {
+  box-shadow: 0 3px 2px var(--shadow-primary);
+}
+
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
   border-top-left-radius: 20px;
@@ -78,20 +82,22 @@ nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   transition: 0.4s;
 }
 
-nav.side-nav ul>li a.active+ul {
-  background-color: var(--background-tertiary);
-}
-
 nav.side-nav .has-child+ul {
-  display: none;
-  height: 0;
-  transition: height .2s ease-out;
+  background-color: var(--background-tertiary);
+  /* display: none; */
+  max-height: 0;
+  transition: .3s;
+  transform: scaleY(0);
+  visibility: collapse;
 }
 
 nav.side-nav .has-child.active+ul {
-  display: block;
-  height: auto;
-  transition: height .2s ease-in;
+  /* display: block; */
+  /* height: max-content; */
+  max-height: max-content;
+  visibility: visible;
+  transition: .3s;
+  transform: scaleY(1);
 }
 
 nav.side-nav .has-child::after {
