@@ -244,6 +244,8 @@ nav.side-nav.hide {
 
 nav.side-nav .mini-hide {
   display: block;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 nav.side-nav.mini .mini-hide {
