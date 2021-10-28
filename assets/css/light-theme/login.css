@@ -13,3 +13,9 @@
   max-width: 200px;
   max-height: 100px;
 }
+
+@media only screen and (max-width: 500px) {
+  .login-form {
+    width: 100%;
+  }
+}

@@ -51,9 +51,17 @@
   background-color: var(--background-secondary);
 }
 
+.table-stripped tr:nth-child(even) {
+  background-color: var(--background-tertiary);
+}
+
+.table-stripped tr:nth-child(even):hover {
+  background-color: var(--background-secondary);
+}
+
 .dataTables_paginate {
   position: relative;
-  width: fit-content;
+  width: max-content;
   margin-left: auto;
 }
 
@@ -89,4 +97,8 @@
   color: #b3b4b9;
   background-color: #798db140;
   cursor: not-allowed;
+}
+
+.dataTables_empty {
+  text-align: center !important;
 }
