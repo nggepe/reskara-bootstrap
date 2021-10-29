@@ -1,0 +1,71 @@
+.datepicker-days, .datepicker-months, .datepicker-years {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  max-width: 223.8px;
+}
+
+.datepicker {
+  background-color: var(--background-primary);
+  box-shadow: 3px 5px 20px var(--shadow-primary);
+}
+
+.datepicker-days .day, .datepicker-days .old.day {
+  padding: 0.25rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.datepicker-days .old.day, .datepicker-days .new.day {
+  color: var(--text-tertiary) !important;
+}
+
+.datepicker .active.day, .datepicker .month.focused {
+  background-color: var(--primary);
+  color: var(--text-white);
+}
+
+.datepicker .datepicker-switch, .datepicker .dow, .datepicker .next, .datepicker .prev, .datepicker .month {
+  text-align: center !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.datepicker-days .datepicker-switch {
+  cursor: pointer;
+}
+
+.datepicker-months .month {
+  cursor: pointer;
+  padding: .25rem .4rem;
+  line-height: 54px;
+  display: block;
+  float: left;
+  width: 23%;
+  height: 54 px;
+  margin: 1%;
+  cursor: pointer;
+  border-radius: 4 px;
+}
+
+.datepicker-months table {
+  width: 100%;
+}
+
+.datepicker-months table {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.datepicker table tr td span {
+  line-height: 54px;
+  display: block;
+  float: left;
+  width: 23%;
+  height: 54 px;
+  margin: 1%;
+  cursor: pointer;
+  border-radius: 4 px;
+  text-align: center;
+}
