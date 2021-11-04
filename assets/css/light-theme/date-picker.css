@@ -7,6 +7,8 @@
 .datepicker {
   background-color: var(--background-primary);
   box-shadow: 3px 5px 20px var(--shadow-primary);
+  font-size: 12px !important;
+  border-radius: 10px;
 }
 
 .datepicker-days .day, .datepicker-days .old.day {

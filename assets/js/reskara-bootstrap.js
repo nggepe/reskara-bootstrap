@@ -31,8 +31,23 @@ RB.showSideBar = function () {
   sidebarHideState = false
 }
 
+RB.setMiniHeight = function () {
+  if (sideNav.hasClass("mini")) {
+    sideNav.attr("style", "height: max-content; min-height: 0px")
+    sideNav.attr("style", "height: max-content; min-height: " + body.clientHeight + "px")
+    console.log(body.clientHeight);
+  }
+}
+
 const sideNav = $('nav.side-nav'), sideNavMinifyBtn = $('.minify-sidenav'), sidebarBtnMobile = $(".sidebar-btn-mobile")
-$(document).ready(function () {
+$(function () {
+  window.addEventListener("resize", function (e) {
+    RB.setMiniHeight()
+  }), window.addEventListener("scroll", function (e) {
+    RB.setMiniHeight()
+  })
+
+
   if (window.innerWidth > 768) sidebarEvents("show", "hide"), windowState = "desktop", appBarState("show")
   else sidebarEvents("hide", "show"), windowState = "mobile", appBarState("hide")
   if (sideNav.hasClass("mini")) changeButtonMinifyContent("mini")
@@ -110,7 +125,7 @@ $(document).ready(function () {
       else {
         changeButtonMinifyContent("mini")
         sideNav.addClass("mini")
-        sideNav.attr("style", "min-height: " + body.clientHeight + "px")
+        // sideNav.attr("style", "min-height: " + body.clientHeight + "px")
       }
     }
   })
