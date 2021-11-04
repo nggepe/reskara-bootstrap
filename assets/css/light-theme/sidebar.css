@@ -12,30 +12,39 @@ nav.side-nav {
   overflow-x: hidden;
   overflow-y: hidden;
   padding-bottom: 50px;
+  scrollbar-color: var(--scroll-background);
+  scrollbar-track-color: var(--scroll-thumb);
+  scrollbar-width: thin;
 }
 
 nav.side-nav::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
+  background-color: var(--scroll-background);
 }
 
 nav.side-nav::-webkit-scrollbar-track {
   background-color: var(--scroll-background);
+  width: 6px;
+  height: 6px;
   cursor: pointer;
 }
 
 nav.side-nav::-webkit-scrollbar-thumb {
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: var(--scroll-thumb);
-  max-height: 50px;
+  width: 6px;
+  height: 6px;
   cursor: pointer;
 }
 
 nav.side-nav::-webkit-scrollbar-track-piece {
-  width: 20px;
+  width: 6px;
+  height: 6px;
 }
 
-nav.side-nav:hover {
-  overflow-y: scroll;
+nav.side-nav:not(.mini):hover {
+  overflow-y: scroll !important;
 }
 
 nav.side-nav .logo {
