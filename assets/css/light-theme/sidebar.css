@@ -10,7 +10,7 @@ nav.side-nav {
   transform: scale(1);
   transition: .5s;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: unset;
   padding-bottom: 50px;
   scrollbar-color: var(--scroll-background);
   scrollbar-track-color: var(--scroll-thumb);
@@ -76,6 +76,10 @@ nav.side-nav ul {
   padding: 0;
 }
 
+nav.side-nav ul>li {
+  position: relative;
+}
+
 nav.side-nav ul>li a:hover span {
   margin-left: 0.9rem;
 }
@@ -86,9 +90,27 @@ nav.side-nav.mini ul>li>a.active {
 
 nav.side-nav ul>li a:hover, nav.side-nav ul>li a.active {
   background-color: var(--background-secondary);
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
   transition: 0.4s;
+}
+
+nav.side-nav ul>li a::before, nav.side-nav ul>li a::before {
+  content: "";
+  position: absolute;
+  background-color: var(--primary);
+  height: 0;
+  left: 0;
+  transition: .5s;
+}
+
+nav.side-nav ul>li a.active:not(.has-child)::before {
+  content: "";
+  position: absolute;
+  height: 38px;
+  width: 4px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: .5s;
 }
 
 nav.side-nav .has-child+ul {
