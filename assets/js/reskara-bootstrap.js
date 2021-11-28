@@ -100,13 +100,21 @@ $(function () {
       if (!e2.innerHTML.includes(e.target.innerHTML) && windowState === "mobile") appBarMenuState("mobile")
     })
   })
-  sideNav.find("a").click(function (e) {
+  sideNav.find("a").on("click", function (e) {
     if ($(this).hasClass("has-child") && $(this).hasClass("active")) $(this).removeClass("active")
     else $(this).addClass("active")
     const el = this
     if (!$(this).hasClass("has-child")) sideNav.find("a").each(function () {
       if (!$(this).hasClass("has-child") && el !== this) $(this).removeClass("active")
     })
+
+    if (sideNav.hasClass("mini")) {
+      sideNav.find("a").each(function (i, e) {
+        if (el != e) {
+          $(e).removeClass("active")
+        }
+      })
+    }
   })
 
   sidebarBtnMobile.click(function (e) {
@@ -114,7 +122,7 @@ $(function () {
     else sidebarEvents("show", '')
   })
 
-  sideNavMinifyBtn.click(function (ev) {
+  sideNavMinifyBtn.on('click', function (ev) {
     ev.preventDefault()
     if (sideNav.hasClass("mini")) {
       sideNav.removeClass("mini")
@@ -125,7 +133,7 @@ $(function () {
       else {
         changeButtonMinifyContent("mini")
         sideNav.addClass("mini")
-        // sideNav.attr("style", "min-height: " + body.clientHeight + "px")
+        sideNav.find('a.has-child').removeClass('active')
       }
     }
   })
